@@ -6,71 +6,71 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
-    private String user_name;
-    private String user_email;
-    private String user_password;
+    private Long userId;
+    private String userName;
+    private String userEmail;
+    private String userPassword;
     @Enumerated(EnumType.STRING)
-    private Role user_role;
+    private Role userRole;
 
     protected User() {
     }
 
-    public User(String user_name, String user_email, String user_password, Role user_role) {
-        this.user_name = user_name;
-        this.user_email = user_email;
-        this.user_password = user_password;
-        this.user_role = user_role;
+    public User(String userName, String userEmail, String userPassword, Role userRole) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public Role getUser_role() {
-        return user_role;
+    public Role getUserRole() {
+        return userRole;
     }
 
-    public void setUser_role(Role user_role) {
-        this.user_role = user_role;
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + user_id +
-                ", user_name='" + user_name + '\'' +
-                ", user_email='" + user_email + '\'' +
-                ", user_password='" + user_password + '\'' +
-                ", user_role=" + user_role +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userRole=" + userRole +
                 '}';
     }
 
@@ -81,23 +81,23 @@ public class User {
 
         User user = (User) o;
 
-        if (getUser_id() != null ? !getUser_id().equals(user.getUser_id()) : user.getUser_id() != null) return false;
-        if (getUser_name() != null ? !getUser_name().equals(user.getUser_name()) : user.getUser_name() != null)
+        if (getUserId() != null ? !getUserId().equals(user.getUserId()) : user.getUserId() != null) return false;
+        if (getUserName() != null ? !getUserName().equals(user.getUserName()) : user.getUserName() != null)
             return false;
-        if (getUser_email() != null ? !getUser_email().equals(user.getUser_email()) : user.getUser_email() != null)
+        if (getUserEmail() != null ? !getUserEmail().equals(user.getUserEmail()) : user.getUserEmail() != null)
             return false;
-        if (getUser_password() != null ? !getUser_password().equals(user.getUser_password()) : user.getUser_password() != null)
+        if (getUserPassword() != null ? !getUserPassword().equals(user.getUserPassword()) : user.getUserPassword() != null)
             return false;
-        return getUser_role() == user.getUser_role();
+        return getUserRole() == user.getUserRole();
     }
 
     @Override
     public int hashCode() {
-        int result = getUser_id() != null ? getUser_id().hashCode() : 0;
-        result = 31 * result + (getUser_name() != null ? getUser_name().hashCode() : 0);
-        result = 31 * result + (getUser_email() != null ? getUser_email().hashCode() : 0);
-        result = 31 * result + (getUser_password() != null ? getUser_password().hashCode() : 0);
-        result = 31 * result + (getUser_role() != null ? getUser_role().hashCode() : 0);
+        int result = getUserId() != null ? getUserId().hashCode() : 0;
+        result = 31 * result + (getUserName() != null ? getUserName().hashCode() : 0);
+        result = 31 * result + (getUserEmail() != null ? getUserEmail().hashCode() : 0);
+        result = 31 * result + (getUserPassword() != null ? getUserPassword().hashCode() : 0);
+        result = 31 * result + (getUserRole() != null ? getUserRole().hashCode() : 0);
         return result;
     }
 }

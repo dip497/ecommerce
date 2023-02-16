@@ -1,0 +1,1 @@
+INTO INTO USER(user_id,user_name,user_email,user_password,user_role) VALUES (1001,"dipendra","dipendra496@gmail.com","12345678","admin")
