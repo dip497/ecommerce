@@ -1,26 +1,31 @@
 package com.serviceops.ecommerce.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity
 public class Review {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
+
+    @ManyToOne
     private User user;
 
-    @OneToMany
+    @ManyToOne
     private Product product;
-    private Enum ratings;
+    @Enumerated(EnumType.STRING)
+    private Ratings ratings;
+    protected Review(){
 
-    public Review(User user, Product product, Enum ratings) {
+    }
+    public Review(User user, Product product, Ratings ratings) {
         this.user = user;
         this.product = product;
         this.ratings = ratings;
     }
+
 
     public Long getReviewId() {
         return reviewId;
@@ -46,11 +51,22 @@ public class Review {
         this.product = product;
     }
 
-    public Enum getRatings() {
+    public Ratings getRatings() {
         return ratings;
     }
 
-    public void setRatings(Enum ratings) {
+    public void setRatings(Ratings ratings) {
         this.ratings = ratings;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", user=" + user +
+                ", product=" + product +
+                ", ratings=" + ratings +
+                '}';
+    }
 }
+

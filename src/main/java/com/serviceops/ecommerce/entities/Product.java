@@ -18,16 +18,19 @@ public class Product {
     private int productPrice;
 
 
-    @OneToMany(mappedBy = "Review")
+    @OneToMany(mappedBy = "product")
     private List<Review> reviews;
     @ManyToOne
     private  Category productCategory;
 
-    public Product(String product_name, String product_desc, int product_price, Category product_category) {
-        this.productName = product_name;
-        this.productDesc = product_desc;
-        this.productPrice = product_price;
-        this.productCategory = product_category;
+    protected Product(){
+
+    }
+    public Product(String productName, String productDesc, int productPrice, Category productCategory) {
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.productPrice = productPrice;
+        this.productCategory = productCategory;
     }
 
     public long getProductId() {
@@ -58,7 +61,7 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public Category getproduct_category() {
+    public Category getProductCategory() {
         return productCategory;
     }
 

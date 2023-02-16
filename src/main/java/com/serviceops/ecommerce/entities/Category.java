@@ -15,20 +15,21 @@ public class Category {
 
     private String categoryName;
 
-    @OneToMany(mappedBy = "Product")
+    @OneToMany(mappedBy = "productCategory")
     private List<Product> productList;
+    protected Category(){
 
-    public Category(Long category_id, String category_name) {
-        this.categoryId = category_id;
-        this.categoryName = category_name;
+    }
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public Long getCategory_id() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategory_id(Long category_id) {
-        this.categoryId = category_id;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {
@@ -42,9 +43,8 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "categoryName='" + categoryName + '\'' +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName +
                 '}';
     }
-
-
 }
