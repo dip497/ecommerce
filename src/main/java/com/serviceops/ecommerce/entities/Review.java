@@ -10,29 +10,26 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    @ManyToOne
-    private User user;
 
-    @ManyToOne
-    private Product product;
     @Enumerated(EnumType.STRING)
     private Ratings ratings;
+
+    @ManyToOne
+    @JoinColumn(name = "product_product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "user_user_id")
+    private User user;
+
     protected Review(){
 
     }
-    public Review(User user, Product product, Ratings ratings) {
-        this.user = user;
-        this.product = product;
+
+    public Review(Ratings ratings, Product product, User user) {
         this.ratings = ratings;
-    }
-
-
-    public Long getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(Long reviewId) {
-        this.reviewId = reviewId;
+        this.product = product;
+        this.user = user;
     }
 
     public User getUser() {
@@ -51,6 +48,18 @@ public class Review {
         this.product = product;
     }
 
+
+
+    public Long getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
+    }
+
+
+
     public Ratings getRatings() {
         return ratings;
     }
@@ -59,14 +68,6 @@ public class Review {
         this.ratings = ratings;
     }
 
-    @Override
-    public String toString() {
-        return "Review{" +
-                "reviewId=" + reviewId +
-                ", user=" + user +
-                ", product=" + product +
-                ", ratings=" + ratings +
-                '}';
-    }
+
 }
 
