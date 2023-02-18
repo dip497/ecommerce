@@ -1,6 +1,6 @@
-                                                               # Ecommerce
+#Ecommerce
 
-                                                        #Spring Boot Based Project 
+#Spring Boot Based Project 
 
 ##Functionalities of the E-Commerce Application: 
 
