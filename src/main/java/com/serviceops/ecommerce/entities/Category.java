@@ -3,7 +3,9 @@ package com.serviceops.ecommerce.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -11,19 +13,16 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
-
-
     private String categoryName;
-
-    @OneToMany(mappedBy = "productCategory")
-    private List<Product> productList;
+    @OneToMany(mappedBy ="category")
+    private Set<SubCategories> subCategoriesSet = new HashSet<>();
     protected Category(){
 
     }
-    public Category(String categoryName) {
+    public Category(String categoryName)
+    {
         this.categoryName = categoryName;
     }
-
     public Long getCategoryId() {
         return categoryId;
     }
@@ -40,11 +39,19 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    public Set<SubCategories> getSubCategoriesSet() {
+        return subCategoriesSet;
+    }
+    public void setSubCategoriesSet(Set<SubCategories> subCategoriesSet) {
+        this.subCategoriesSet = subCategoriesSet;
+    }
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
-                ", categoryName='" + categoryName +
+                ", categoryName='" + categoryName + '\'' +
+                ", subCategoriesSet=" + subCategoriesSet +
                 '}';
     }
+
 }

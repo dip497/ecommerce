@@ -16,19 +16,19 @@ public class Product {
 
     private String productDesc;
     private int productPrice;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product" )
     private List<Review> reviews;
     @ManyToOne
-    private  Category productCategory;
+    private  SubCategories productSubCategory;
 
     protected Product(){
 
     }
-    public Product(String productName, String productDesc, int productPrice, Category productCategory) {
+    public Product(String productName, String productDesc, int productPrice, SubCategories productSubCategory) {
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
-        this.productCategory = productCategory;
+        this.productSubCategory = productSubCategory;
     }
 
     public long getProductId() {
@@ -59,8 +59,8 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public Category getProductCategory() {
-        return productCategory;
+    public SubCategories getProductCategory() {
+        return productSubCategory;
     }
 
 
@@ -79,7 +79,7 @@ public class Product {
                 "product_name='" + productName + '\'' +
                 ", product_desc='" + productDesc + '\'' +
                 ", product_price=" + productPrice +
-                ", product_category=" + productCategory +
+                ", product_subcategory=" + productSubCategory +
                 '}';
     }
 
