@@ -31,7 +31,7 @@ class EcommerceApplicationTests {
 
 	@Test
 	void contextLoads() {
-		reviewRepository.save(new Review(Ratings.THREE,productRepository.save(new Product("a","b",12,categoryRepository.save(new Category("HAircare")))),userRepository.save(new User("test1","test1","1234", Role.ADMIN))));
+		reviewRepository.save(new Review(Ratings.THREE,productRepository.save(new Product("a","b",12,categoryRepository.save(new Category("HAircare")))),userRepository.save(new User("test1","as","test1","1234", Role.ADMIN))));
 	}
 
 }

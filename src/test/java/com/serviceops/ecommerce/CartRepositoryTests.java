@@ -78,7 +78,7 @@ class CartRepositoryTests {
 
 //		Cart cart = new Cart(orderProduct);
 
-		User user = new User("dipendra","d","as",Role.ADMIN);
+		User user = new User("dipendra","sharma","d","as",Role.ADMIN);
 		logger.info("cart -> {}", repo.save(new Cart(orderProducts,user)));
 
 	}

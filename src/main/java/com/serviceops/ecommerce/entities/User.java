@@ -2,12 +2,15 @@ package com.serviceops.ecommerce.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    private String userName;
+    private String userFirstName;
+    private String userLastName;
     private String userEmail;
     private String userPassword;
     @Enumerated(EnumType.STRING)
@@ -16,8 +19,9 @@ public class User {
     protected User() {
     }
 
-    public User(String userName, String userEmail, String userPassword, Role userRole) {
-        this.userName = userName;
+    public User(String userFirstName, String userLastName, String userEmail, String userPassword, Role userRole) {
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userRole = userRole;
@@ -31,12 +35,20 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserFirstName() {
+        return userFirstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
     }
 
     public String getUserEmail() {
@@ -67,7 +79,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", userName='" + userName + '\'' +
+                ", userFirstName='" + userFirstName + '\'' +
+                ", userLastName='" + userLastName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
@@ -78,26 +91,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
-        if (getUserId() != null ? !getUserId().equals(user.getUserId()) : user.getUserId() != null) return false;
-        if (getUserName() != null ? !getUserName().equals(user.getUserName()) : user.getUserName() != null)
-            return false;
-        if (getUserEmail() != null ? !getUserEmail().equals(user.getUserEmail()) : user.getUserEmail() != null)
-            return false;
-        if (getUserPassword() != null ? !getUserPassword().equals(user.getUserPassword()) : user.getUserPassword() != null)
-            return false;
-        return getUserRole() == user.getUserRole();
+        return Objects.equals(userId, user.userId) && Objects.equals(userFirstName, user.userFirstName) && Objects.equals(userLastName, user.userLastName) && Objects.equals(userEmail, user.userEmail) && Objects.equals(userPassword, user.userPassword) && userRole == user.userRole;
     }
 
     @Override
     public int hashCode() {
-        int result = getUserId() != null ? getUserId().hashCode() : 0;
-        result = 31 * result + (getUserName() != null ? getUserName().hashCode() : 0);
-        result = 31 * result + (getUserEmail() != null ? getUserEmail().hashCode() : 0);
-        result = 31 * result + (getUserPassword() != null ? getUserPassword().hashCode() : 0);
-        result = 31 * result + (getUserRole() != null ? getUserRole().hashCode() : 0);
-        return result;
+        return Objects.hash(userId, userFirstName, userLastName, userEmail, userPassword, userRole);
     }
 }
