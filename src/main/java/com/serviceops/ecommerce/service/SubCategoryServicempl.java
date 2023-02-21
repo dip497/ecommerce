@@ -19,7 +19,7 @@ public class SubCategoryServicempl implements SubCategoryService{
     SubCategoryRepository subCategoryRepositoryDao;
     @Override
     public boolean createSubCategory(SubCategory subCategory) {
-        if(!Helper.isNull(subCategoryRepositoryDao.findByName(subCategory.getSubcategoryName())))
+        if(!Helper.isNull(subCategoryRepositoryDao.findBysubcategoryName(subCategory.getSubcategoryName())))
         {
             throw new CategoryExist("Category Already Exist");
         }

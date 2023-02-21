@@ -44,6 +44,6 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public SubCategory findProductSubCategory(Long Id) {
-        return productRepositoryDao.findProductSubCategory(Id);
+        return productRepositoryDao.findByproductSubCategory(Id);
     }
 }

@@ -16,7 +16,7 @@ public class Product {
 
     private String productDesc;
     private int productPrice;
-    @OneToMany(mappedBy = "product" )
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Review> reviews;
     @ManyToOne
     private SubCategory productSubCategory;
