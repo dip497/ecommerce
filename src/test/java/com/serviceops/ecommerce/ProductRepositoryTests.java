@@ -10,9 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-
-import java.util.Optional;
 
 @SpringBootTest
 class ProductRepositoryTests {
@@ -27,11 +24,11 @@ class ProductRepositoryTests {
     CategoryRepository crepo;
 
     @Autowired
-    SubCategoriesRepository subCaterepo;
+    SubCategoryRepository subCaterepo;
     @Test
     void contextLoads() {
         Category c = crepo.save(new Category("Electronics"));
-        SubCategories subcat = subCaterepo.save(new SubCategories("Laptop",c));
+        SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
         Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
     }
 
@@ -42,7 +39,7 @@ class ProductRepositoryTests {
     public void saveproduct()
     {
         Category c = crepo.save(new Category("Electronics"));
-        SubCategories subcat = subCaterepo.save(new SubCategories("Laptop",c));
+        SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
         Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
 
 

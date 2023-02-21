@@ -9,7 +9,7 @@ import java.util.Set;
 
 
 @Entity
-public class SubCategories {
+public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subcategoryId;
@@ -21,11 +21,11 @@ public class SubCategories {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    protected SubCategories(){
+    protected SubCategory(){
 
     }
 
-    public SubCategories(String subcategoryName, Category category) {
+    public SubCategory(String subcategoryName, Category category) {
         this.subcategoryName = subcategoryName;
         this.category = category;
 
@@ -49,7 +49,7 @@ public class SubCategories {
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
     }
-    public SubCategories(Category category) {
+    public SubCategory(Category category) {
         this.category = category;
     }
     public Category getCategory() {
