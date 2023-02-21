@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
-public SubCategory findProductSubCategory(Long Id);
+public SubCategory findByproductSubCategory(Long Id);
 
 
 }

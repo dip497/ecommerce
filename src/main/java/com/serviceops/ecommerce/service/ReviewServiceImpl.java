@@ -1,6 +1,7 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.entities.Category;
+import com.serviceops.ecommerce.entities.Review;
 import com.serviceops.ecommerce.exceptions.CategoryExist;
 import com.serviceops.ecommerce.repository.CategoryRepository;
 import com.serviceops.ecommerce.repository.ReviewRepository;
@@ -20,4 +21,18 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     ReviewRepository reviewRepositoryDao;
 
+    @Override
+    public List<Review> findAll() {
+        return null;
+    }
+
+    @Override
+    public Review updateReviewById(Long Id) {
+        return null;
+    }
+
+    @Override
+    public void deleteReviewById(Long Id) {
+
+    }
 }

@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryRepository categoryRepositoryDao;
     @Override
     public boolean createCategory(Category category) {
-        if(!Helper.isNull(categoryRepositoryDao.findByName(category.getCategoryName())))
+        if(!Helper.isNull(categoryRepositoryDao.findBycategoryName(category.getCategoryName())))
         {
             throw new CategoryExist("Category Already Exist");
         }

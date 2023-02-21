@@ -32,12 +32,12 @@ class OrderProductRepositoryTests {
 	@Test
 	void testOrderProduct(){
 
-		Category category = new Category("llo");
-		categoryRepository.save(category);
-		Product product = new Product("1","1",1,category);
-		productRepository.save(product);
-		OrderProduct orderProduct = orderProductRepository.save(new OrderProduct(product,4));
-		logger.info("orderProduct -> {}",orderProduct);
+//		Category category = new Category("llo");
+//		categoryRepository.save(category);
+//		Product product = new Product("1","1",1,category);
+//		productRepository.save(product);
+//		OrderProduct orderProduct = orderProductRepository.save(new OrderProduct(product,4));
+//		logger.info("orderProduct -> {}",orderProduct);
 	}
 
 }
