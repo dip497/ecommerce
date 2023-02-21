@@ -19,12 +19,12 @@ public class Product {
     @OneToMany(mappedBy = "product" )
     private List<Review> reviews;
     @ManyToOne
-    private  SubCategories productSubCategory;
+    private SubCategory productSubCategory;
 
     protected Product(){
 
     }
-    public Product(String productName, String productDesc, int productPrice, SubCategories productSubCategory) {
+    public Product(String productName, String productDesc, int productPrice, SubCategory productSubCategory) {
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
@@ -59,7 +59,7 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public SubCategories getProductCategory() {
+    public SubCategory getProductCategory() {
         return productSubCategory;
     }
 

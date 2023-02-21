@@ -3,6 +3,7 @@ package com.serviceops.ecommerce.entities;
 
 import jakarta.persistence.*;
 
+
 import java.util.HashSet;
 
 import java.util.Set;
@@ -13,9 +14,10 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
+
     private String categoryName;
-    @OneToMany(mappedBy ="category")
-    private Set<SubCategories> subCategoriesSet = new HashSet<>();
+    @OneToMany(mappedBy ="category",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SubCategory> subCategorySet = new HashSet<>();
     protected Category(){
 
     }
@@ -39,18 +41,18 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Set<SubCategories> getSubCategoriesSet() {
-        return subCategoriesSet;
+    public Set<SubCategory> getSubCategoriesSet() {
+        return subCategorySet;
     }
-    public void setSubCategoriesSet(Set<SubCategories> subCategoriesSet) {
-        this.subCategoriesSet = subCategoriesSet;
+    public void setSubCategoriesSet(Set<SubCategory> subCategorySet) {
+        this.subCategorySet = subCategorySet;
     }
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
-                ", subCategoriesSet=" + subCategoriesSet +
+                ", subCategoriesSet=" + subCategorySet +
                 '}';
     }
 
