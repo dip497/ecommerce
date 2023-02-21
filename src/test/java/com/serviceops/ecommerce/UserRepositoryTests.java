@@ -34,7 +34,7 @@ class UserRepositoryTests {
         user.setEmail("test0d");
         user.setPassword("check");
 
-        logger.info("user -> {}",   userService.singUp(user));
+        logger.info("user -> {}",   userService.signUp(user));
 
     }
 

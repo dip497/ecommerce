@@ -11,7 +11,9 @@ public class User {
     private Long userId;
     private String userFirstName;
     private String userLastName;
+    @Column(unique = true, nullable = false)
     private String userEmail;
+    @Column(nullable = false)
     private String userPassword;
     @Enumerated(EnumType.STRING)
     private Role userRole;
