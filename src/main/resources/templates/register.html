@@ -11,21 +11,6 @@
           crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">Registration and Login System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <br /><br /><br />
 <div class="container">
     <div class="row col-md-8 offset-md-2">
@@ -52,11 +37,11 @@
                                 id="firstName"
                                 name="firstName"
                                 placeholder="Enter first name"
-                                th:field="*{firstName}"
+                                th:field="*{userFirstName}"
                                 type="text"
                         />
-                        <p th:errors = "*{firstName}" class="text-danger"
-                           th:if="${#fields.hasErrors('firstName')}"></p>
+                        <p th:errors = "*{userFirstName}" class="text-danger"
+                           th:if="${#fields.hasErrors('userFirstName')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
@@ -66,11 +51,11 @@
                                 id="lastName"
                                 name="lastName"
                                 placeholder="Enter last name"
-                                th:field="*{lastName}"
+                                th:field="*{userLastName}"
                                 type="text"
                         />
-                        <p th:errors = "*{lastName}" class="text-danger"
-                           th:if="${#fields.hasErrors('lastName')}"></p>
+                        <p th:errors = "*{userLastName}" class="text-danger"
+                           th:if="${#fields.hasErrors('userLastName')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
@@ -80,11 +65,11 @@
                                 id="email"
                                 name="email"
                                 placeholder="Enter email address"
-                                th:field="*{email}"
+                                th:field="*{userEmail}"
                                 type="email"
                         />
-                        <p th:errors = "*{email}" class="text-danger"
-                           th:if="${#fields.hasErrors('email')}"></p>
+                        <p th:errors = "*{userEmail}" class="text-danger"
+                           th:if="${#fields.hasErrors('userEmail')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
@@ -94,12 +79,27 @@
                                 id="password"
                                 name="password"
                                 placeholder="Enter password"
-                                th:field="*{password}"
+                                th:field="*{userPassword}"
                                 type="password"
                         />
-                        <p th:errors = "*{password}" class="text-danger"
-                           th:if="${#fields.hasErrors('password')}"></p>
+                        <p th:errors = "*{userPassword}" class="text-danger"
+                           th:if="${#fields.hasErrors('userPassword')}"></p>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Role</label>
+                        <input
+                                class="form-control"
+                                id="role"
+                                name="role"
+                                placeholder="Enter role"
+                                th:field="*{userRole}"
+                                type="text"
+                        />
+                        <p th:errors = "*{userRole}" class="text-danger"
+                           th:if="${#fields.hasErrors('userRole')}"></p>
+                    </div>
+
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Register</button>
                         <span>Already registered? <a th:href="@{/login}">Login here</a></span>

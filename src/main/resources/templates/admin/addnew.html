@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>customer Management </title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1>customer Management </h1>
+  <hr>
+  <h2>Save customer</h2>
+
+  <form action="#" th:action="@{/admin/users/adduser/save}" th:object="${user}"
+        method="POST">
+    <input type="text" th:field="*{userFirstName}" placeholder="first name" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{userLastName}" placeholder="last name" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{userEmail}" placeholder="email" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{userPassword}" placeholder="password" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{userRole}" placeholder="role" class="form-control mb-4 col-4">
+
+    <button type="submit" class="btn btn-info col-2">Save
+      customer</button>
+  </form>
+
+  <hr>
+
+  <a th:href="@{/admin/users}"> Back to customer List</a>
+</div>
+</body>
+</html>

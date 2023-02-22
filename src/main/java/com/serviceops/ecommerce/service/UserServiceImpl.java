@@ -1,8 +1,6 @@
 package com.serviceops.ecommerce.service;
 
-import com.serviceops.ecommerce.dto.user.SignInDto;
-import com.serviceops.ecommerce.dto.user.SignUpDto;
-import com.serviceops.ecommerce.dto.user.UserRole;
+import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.Role;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.exceptions.CustomException;
@@ -12,6 +10,8 @@ import com.serviceops.ecommerce.utils.PasswordHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,14 +20,14 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public boolean signUp(SignUpDto signUpDto) throws CustomException {
-        if (!Helper.isNull(userRepository.findByUserEmail(signUpDto.getEmail()))) {
+    public boolean signUp(UserDto signUpDto) throws CustomException {
+        if (!Helper.isNull(userRepository.findByUserEmail(signUpDto.getUserEmail()))) {
             throw new CustomException("User already exists");
         }
 
-        String encryptedPassword = PasswordHelper.hashPassword(signUpDto.getPassword());
+        String encryptedPassword = PasswordHelper.hashPassword(signUpDto.getUserPassword());
 
-        User user = new User(signUpDto.getFirstName(), signUpDto.getLastName(), signUpDto.getEmail(), encryptedPassword, Helper.getRole(signUpDto.getRole()));
+        User user = new User(signUpDto.getUserFirstName(), signUpDto.getUserLastName(), signUpDto.getUserEmail(), encryptedPassword, signUpDto.getUserRole());
         try {
             userRepository.save(user);
             return true;
@@ -37,11 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signIn(SignInDto signInDto) {
-        User user = userRepository.findByUserEmail(signInDto.getEmail());
+    public boolean signIn(UserDto signInDto) {
+        User user = userRepository.findByUserEmail(signInDto.getUserEmail());
         if (Helper.isNull(user)) {
             throw new CustomException("User not exists");
-        } else if (!PasswordHelper.matchPassword(user.getUserPassword(), signInDto.getPassword())) {
+        } else if (!PasswordHelper.matchPassword(user.getUserPassword(), signInDto.getUserPassword())) {
             throw new CustomException("Password does not match");
 
         }
@@ -49,17 +49,58 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String email) {
+    public UserDto getUser(String email) {
         User user = userRepository.findByUserEmail(email);
+
+
         if (Helper.isNull(user)) {
             throw new CustomException("User not exists");
         }
-        return user;
+
+        return entityToDto(user);
     }
 
-    public boolean canCrud(UserRole userRole) {
-        User user = userRepository.findByUserEmail(userRole.getEmail());
+
+
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map((user)-> entityToDto(user)).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean deleteUser(Long id) {
+
+
+         userRepository.deleteById(id);
+         return true;
+    }
+
+    @Override
+    public boolean updateUser(UserDto userDto) {
+        System.out.println("in servier" + userDto);
+        User user =  userRepository.findById(userDto.getUserId()).get();
+
+        user.setUserFirstName(userDto.getUserFirstName());
+        user.setUserLastName(userDto.getUserLastName());
+        user.setUserRole(userDto.getUserRole());
+
+        userRepository.save(user);
+        return true;
+    }
+
+
+
+    public boolean canCrud(UserDto userDto) {
+        User user = userRepository.findByUserEmail(userDto.getUserEmail());
         return user.getUserRole() == Role.ADMIN;
     }
+
+    private UserDto entityToDto(User user){
+        return new UserDto(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserEmail(), user.getUserPassword(), user.getUserRole());
+    }
+
+
 
 }

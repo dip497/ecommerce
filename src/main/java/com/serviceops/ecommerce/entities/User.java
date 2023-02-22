@@ -1,7 +1,6 @@
 package com.serviceops.ecommerce.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity(name = "user")
@@ -11,7 +10,7 @@ public class User {
     private Long userId;
     private String userFirstName;
     private String userLastName;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String userEmail;
     @Column(nullable = false)
     private String userPassword;

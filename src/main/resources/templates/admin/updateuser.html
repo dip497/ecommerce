@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>customer Management </title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>customer Management </h1>
+  <hr>
+  <h2>Update customer</h2>
+
+  <form action="#" th:action="@{/admin/users/updateuser/save}" th:object="${user}"
+        method="POST">
+
+    <!-- Add hidden form field to handle update -->
+    <input type="hidden" th:field="*{userId}" />
+
+    <input type="text" th:field="*{userFirstName}" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{userLastName}" class="form-control mb-4 col-4">
+    <input type="hidden" th:field="*{userPassword}" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{userRole}" class="form-control mb-4 col-4">
+
+    <button type="submit"  > Update Employee </button>
+  </form>
+
+  <hr>
+
+  <a th:href = "@{/admin/users}"> Back to Employee List</a>
+</div>
+</body>
+</html>
