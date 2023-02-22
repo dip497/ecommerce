@@ -4,6 +4,7 @@ import com.serviceops.ecommerce.dto.order.OrderDto;
 import com.serviceops.ecommerce.entities.Order;
 import com.serviceops.ecommerce.entities.OrderItem;
 import com.serviceops.ecommerce.entities.User;
+import com.serviceops.ecommerce.repository.OrderRepository;
 import com.serviceops.ecommerce.service.OrderItemService;
 import com.serviceops.ecommerce.service.OrderService;
 import com.serviceops.ecommerce.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -28,13 +30,16 @@ public class OrderController {
 
     @Autowired
     private OrderItemService orderItemList;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     @RequestMapping("/user/allOrder")
     public ModelAndView listAllOrder(Principal principal){
         ModelAndView mav = new ModelAndView("/user/AllOrder");
-        List<OrderItem> orderItems = orderItemList.getAllOderItem();
-        mav.addObject("ordersList",orderItems);
+        List<OrderItem> orderItem = orderItemList.getAllOderItem(userService.getUser(principal.getName()));
+        System.out.println(Arrays.toString(orderItem.toArray()));
+        mav.addObject("ordersList",orderItem);
         return mav;
     }
 

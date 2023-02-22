@@ -69,11 +69,16 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderItem> orderItemList(UserDto userDto){
 
+
         List<Order>  orderList= orderRepository.findAllByUser(userRepository.findByUserEmail(userDto.getUserEmail()));
         List<OrderItem> orderItemList = new ArrayList<>();
         for (int i = 0; i < orderList.size(); i++) {
+            System.out.println(orderList.size());
             for (int j = i; j < orderList.get(i).getOrderItems().size(); j++) {
-                orderItemList.add(orderItemList.get(j));
+                if(orderList.get(i).getUser() == userRepository.findByUserEmail(userDto.getUserEmail())) {
+                    orderItemList.add(orderItemList.get(j));
+                }
+
 
             }
 

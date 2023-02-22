@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce.service;
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.cart.AddToCartDto;
 import com.serviceops.ecommerce.dto.cart.CartDto;
 import com.serviceops.ecommerce.dto.cart.CartItemDto;
@@ -8,6 +9,7 @@ import com.serviceops.ecommerce.entities.Cart;
 import com.serviceops.ecommerce.entities.Product;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.CartRepository;
+import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class CartServiceImpl implements CartService {
     private CartRepository cartRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public CartServiceImpl(){}
     public CartServiceImpl(CartRepository cartRepository) {
@@ -32,8 +36,8 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public Cart addToCart(AddToCartDto addToCartDto, Product product, UserDto user) {
-
+    public Cart addToCart(AddToCartDto addToCartDto, ProductDto productDto, UserDto user) {
+        Product product = productRepository.findById(productDto.getProductId()).get();
         Cart cart = new Cart(product,userRepository.findByUserEmail(user.getUserEmail()),addToCartDto.getQuantity());
         cartRepository.save(cart);
 

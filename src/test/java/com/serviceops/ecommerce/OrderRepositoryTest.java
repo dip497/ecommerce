@@ -73,4 +73,11 @@ class OrderRepositoryTest {
     void testPlaceOrder(){
         orderService.placeOrder(userService.getUser("customer@gmail.com"));
     }
+
+    @Test
+    void test(){
+
+        System.out.println(orderItemRepository.retriveOrder(userRepository.findByUserEmail("adarash@gmail.com")));
+    }
+
 }

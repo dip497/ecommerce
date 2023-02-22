@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce.controller;
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.cart.AddToCartDto;
 import com.serviceops.ecommerce.dto.cart.CartDto;
 import com.serviceops.ecommerce.dto.cart.CartItemDto;
@@ -32,7 +33,7 @@ public class CartController {
     @GetMapping("/user/")
     public ModelAndView addToCart(Principal principal, AddToCartDto addToCartDto){
         ModelAndView mav = new ModelAndView("user/cart");
-        Product product = productService.findProductById(addToCartDto.getProductId());
+        ProductDto product = productService.findProductById(addToCartDto.getProductId());
 
         mav.addObject("cart",cartService.addToCart(addToCartDto,product,userService.getUser(principal.getName())));
         return mav;
