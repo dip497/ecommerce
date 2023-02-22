@@ -1,16 +1,17 @@
 package com.serviceops.ecommerce.service;
 
+import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.entities.SubCategory;
 
 import java.util.List;
 
 public interface SubCategoryService {
 
-    public boolean createSubCategory(SubCategory subCategory);
-    public List<SubCategory> getAllSubCategroies();
+    public boolean createSubCategory(SubCategoryDto subCategory);
+    public List<SubCategoryDto> getAllSubCategroies();
     public void removeSubCategoryById(Long Id);
-    public SubCategory findSubCategoryById(Long Id);
-    public SubCategory updateSubCategoryById(SubCategory subCategory);
+    public SubCategoryDto findSubCategoryById(Long Id);
+    public SubCategoryDto updateSubCategoryById(SubCategoryDto subCategory);
 
 
 

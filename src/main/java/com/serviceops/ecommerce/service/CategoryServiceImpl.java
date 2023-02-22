@@ -1,6 +1,9 @@
 package com.serviceops.ecommerce.service;
 
+import com.serviceops.ecommerce.dto.Category.CategoryDto;
+import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.entities.Category;
+import com.serviceops.ecommerce.entities.SubCategory;
 import com.serviceops.ecommerce.exceptions.CategoryExist;
 import com.serviceops.ecommerce.repository.CategoryRepository;
 import com.serviceops.ecommerce.utils.Helper;
@@ -8,9 +11,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -18,39 +22,60 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Autowired
-    CategoryRepository categoryRepositoryDao;
+    CategoryRepository categoryRepository;
     @Override
-    public boolean createCategory(Category category) {
-        if(!Helper.isNull(categoryRepositoryDao.findBycategoryName(category.getCategoryName())))
+    public boolean createCategory(CategoryDto categoryDto) {
+        if(!Helper.isNull(categoryRepository.findBycategoryName(categoryDto.getCategoryName())))
         {
             throw new CategoryExist("Category Already Exist");
         }
         else{
-            categoryRepositoryDao.save(category);
+            categoryRepository.save(new Category(categoryDto.getCategoryName()));
             return true;
         }
     }
 
     @Override
-    public List<Category> getAllCategroies() {
-        return categoryRepositoryDao.findAll();
+    public List<CategoryDto> getAllCategroies() {
+        List<Category> category = categoryRepository.findAll();
+        return category.stream().map(category1 -> convert(category1)).collect(Collectors.toList());
+
     }
 
     @Override
     public void removeCategoryById(Long Id) {
-
-        categoryRepositoryDao.deleteById(Id);
+        categoryRepository.deleteById(Id);
     }
 
     @Override
-    public Category findCategoryById(Long Id) {
-        Optional<Category> category = categoryRepositoryDao.findById(Id);
-        return category.get();
+    public CategoryDto findCategoryById(Long Id) {
+        Optional<Category> category = categoryRepository.findById(Id);
+        CategoryDto categoryDto = new CategoryDto(category.get().getCategoryId(),category.get().getCategoryName());
+        categoryDto.setSubCategoriesSet(category.get().getSubCategorySet().stream().map(subCategory -> convertsub(subCategory)).collect(Collectors.toSet()));
+        System.out.println("serive dtp "+ categoryDto);
+        return categoryDto;
     }
 
     @Override
-    public Category updateCategoryById(Category category) {
-        return  categoryRepositoryDao.save(category);
+    public CategoryDto updateCategoryById(CategoryDto categoryDto) {
+        Category category = categoryRepository.findById(categoryDto.getCategoryId()).get();
+        categoryRepository.save(category);
+        return categoryDto;
 
+    }
+
+    @Override
+    public List<SubCategoryDto> getAllSubCategoryById(Long Id) {
+        Category category = categoryRepository.findById(Id).get();
+        Set<SubCategory> subCategorySet = category.getSubCategorySet();
+        return subCategorySet.stream().map(subCategory1 -> convertsub(subCategory1)).collect(Collectors.toList());
+    }
+    private CategoryDto convert(Category category)
+    {
+        return new CategoryDto(category.getCategoryId(),category.getCategoryName());
+    }
+    private SubCategoryDto convertsub(SubCategory subCategory)
+    {
+        return new SubCategoryDto(subCategory.getSubcategoryId(), subCategory.getSubcategoryName(),this.convert(subCategory.getCategory()));
     }
 }

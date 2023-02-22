@@ -1,10 +1,12 @@
 package com.serviceops.ecommerce.entities;
 
 
+import com.serviceops.ecommerce.dto.Category.CategoryDto;
 import jakarta.persistence.*;
 
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -16,7 +18,7 @@ public class SubCategory {
 
     private String subcategoryName;
 
-    @OneToMany(mappedBy = "productSubCategory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "productSubCategory", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<Product> productSet = new HashSet<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
@@ -49,18 +51,25 @@ public class SubCategory {
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
     }
-    public SubCategory(Category category) {
+    public void SubCategory(Category category) {
         this.category = category;
     }
     public Category getCategory() {
         return  category;
     }
 
-  
+//    @Override
+//    public String toString() {
+//        return "SubCategories{" +
+//
+//                " subcategoryName='" + subcategoryName + '\'' +
+//                ", productSet=" + productSet +
+//                ", category=" + category +
+//                '}';
+//    }
 
 
-
-
-
-
+    public void setCategory(Category category) {
+        this.category=category;
+    }
 }

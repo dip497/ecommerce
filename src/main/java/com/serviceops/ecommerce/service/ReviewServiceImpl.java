@@ -23,16 +23,18 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> findAll() {
-        return null;
+        return reviewRepositoryDao.findAll();
     }
-
     @Override
-    public Review updateReviewById(Long Id) {
-        return null;
+    public Review updateReviewById(Review review) {
+        return reviewRepositoryDao.save(review);
     }
-
     @Override
     public void deleteReviewById(Long Id) {
-
+        reviewRepositoryDao.deleteById(Id);
+    }
+    @Override
+    public Review createReview(Review Review) {
+      return   reviewRepositoryDao.save(Review);
     }
 }
