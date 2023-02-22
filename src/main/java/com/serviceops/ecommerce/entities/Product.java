@@ -15,7 +15,7 @@ public class Product {
     private String productName;
 
     private String productDesc;
-    private int productPrice;
+    private long productPrice;
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Review> reviews;
     @ManyToOne
@@ -31,7 +31,7 @@ public class Product {
         this.productSubCategory = productSubCategory;
     }
 
-    public long getProductId() {
+       public long getProductId() {
         return productId;
     }
 
@@ -51,11 +51,11 @@ public class Product {
         this.productDesc = productDesc;
     }
 
-    public int getProductPrice() {
+    public long getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(int productPrice) {
+    public void setProductPrice(long productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -73,15 +73,6 @@ public class Product {
     }
 
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "product_name='" + productName + '\'' +
-                ", product_desc='" + productDesc + '\'' +
-                ", product_price=" + productPrice +
-                ", product_subcategory=" + productSubCategory +
-                '}';
-    }
 
 
 }

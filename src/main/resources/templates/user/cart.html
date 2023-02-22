@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<h2>Cart</h2>
+<a th:href="@{/user/placeorder}" ><button type="button" class="btn btn-primary btn-sm">Place Order</button></a>
+
+<div>
+<table>
+       <tr th:each="cartItemsList:${cart}">
+           <td th:text="${cartItemsList.getProduct().getProductName()}"></td>
+           <td th:text="${cartItemsList.getQuantity()}"></td>
+           <td th:text="${cartItemsList.getProduct().getProductPrice()}"></td>
+           <td> <a th:href="@{/user/cart/update{id} (id=${cartItemsList.getId()})}"><button type="button" class="btn btn-primary" aria-label="update">Update</button></a></td>
+           <td> <a th:href="@{/user/cart/delete{id}(id=${cartItemsList.getId()})}"><button type="button" class="btn btn-primary" aria-label="Delete">Delete</button></a></td>
+       </tr>
+Cart Value =    <a th:text="${cartValue}"></a>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+</form>
+</body>
+</html>

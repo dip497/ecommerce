@@ -14,7 +14,7 @@ public class Order {
     @Column(name="total_price")
     private long totalPrice;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="user_id", referencedColumnName = "userId")
     private User user;
 
@@ -23,12 +23,6 @@ public class Order {
 
     public Order(){}
 
-    public Order(long totalPrice, User user, List<OrderItem> orderItems) {
-
-        this.totalPrice = totalPrice;
-        this.user = user;
-        this.orderItems = orderItems;
-    }
 
     public Integer getId() {
         return id;
@@ -61,4 +55,5 @@ public class Order {
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
+
 }

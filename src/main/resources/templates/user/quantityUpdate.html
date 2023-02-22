@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/user/cart/update/save}" th:object="${addToCart}">
+    <input type="hidden" th:field="*{id}">
+    <input type="text" th:field="*{quantity}">
+    <button type="submit">submit</button>
+
+</form>
+
+</body>
+</html>

@@ -13,6 +13,7 @@ public class Cart {
     private Integer cartId;
 
     @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "productId")
     private Product product;
 
     @OneToOne
@@ -20,23 +21,17 @@ public class Cart {
 
     private int quantity;
 
-    public Cart(Product product, Integer quantity, User user) {
-        this.product = product;
-        this.quantity = quantity;
-        this.user = user;
-
-    }
-
-    public Cart(Integer cartId, Product product, User user, int quantity) {
-        this.cartId = cartId;
-        this.product = product;
-        this.user = user;
-        this.quantity = quantity;
-    }
-
     public Cart() {
 
+
     }
+
+    public Cart( Product product, User user, int quantity) {
+        this.product = product;
+        this.user = user;
+        this.quantity = quantity;
+    }
+
 
     public Integer getCartId() {
         return cartId;

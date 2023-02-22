@@ -56,15 +56,7 @@ public class SubCategory {
         return  category;
     }
 
-    @Override
-    public String toString() {
-        return "SubCategories{" +
-
-                " subcategoryName='" + subcategoryName + '\'' +
-                ", productSet=" + productSet +
-                ", category=" + category +
-                '}';
-    }
+  
 
 
 

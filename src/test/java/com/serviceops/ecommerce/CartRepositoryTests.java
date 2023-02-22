@@ -2,9 +2,11 @@ package com.serviceops.ecommerce;
 
 
 import com.serviceops.ecommerce.dto.cart.AddToCartDto;
+import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.*;
 import com.serviceops.ecommerce.repository.*;
 import com.serviceops.ecommerce.service.CartService;
+import com.serviceops.ecommerce.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,8 @@ class CartRepositoryTests {
 	@Autowired
 	private SubCategoryRepository subCaterepo;
 
-
+	@Autowired
+	private UserService service;
 	@Autowired
 	private UserRepository userRepository;
 	@Test
@@ -42,7 +45,7 @@ class CartRepositoryTests {
 		Category c = crepo.save(new Category("Electronics"));
 		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
 		Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
-		User save = userRepository.findByUserEmail("rohan@gmail.com");
+		UserDto save = service.getUser("rohan@gmail.com");
 		AddToCartDto addToCartDto = new AddToCartDto();
 		addToCartDto.setQuantity(43);
 		cartService.addToCart(addToCartDto,product,save);
@@ -52,15 +55,23 @@ class CartRepositoryTests {
 
 	@Test
 	void addProductToCartRepo(){
-		User save = userRepository.findByUserEmail("rohan@gmail.com");
+		User save = userRepository.findByUserEmail("customer@gmail.com");
 //		User save = userRepository.save(new User("dipendra", "sharma", "rohan@gmail.com", "12345678", Role.ADMIN));
 		Category c = crepo.save(new Category("Electronics"));
 
 		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
-		Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
-		cartRepository.save(new Cart(product,12,save));
+		Product product = pRepo.save(new Product("new", "New ",54633,subcat));
+		cartRepository.save(new Cart(product,save,3));
+
 	}
 
+	@Test
+	void getCartList(){
+		User save = userRepository.findByUserEmail("rohan@gmail.com");
+//		cartService.cartItemsList(save);
+//		System.out.println(cartService.cartItemsList(save));
+		System.out.println(cartService.cartItemsList(save));
+	}
 
 
 

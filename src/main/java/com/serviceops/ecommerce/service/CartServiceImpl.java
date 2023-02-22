@@ -3,10 +3,12 @@ package com.serviceops.ecommerce.service;
 import com.serviceops.ecommerce.dto.cart.AddToCartDto;
 import com.serviceops.ecommerce.dto.cart.CartDto;
 import com.serviceops.ecommerce.dto.cart.CartItemDto;
+import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.Cart;
 import com.serviceops.ecommerce.entities.Product;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.CartRepository;
+import com.serviceops.ecommerce.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,22 +22,28 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private UserRepository userRepository;
 
+    public CartServiceImpl(){}
     public CartServiceImpl(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }
 
 
     @Override
-    public void addToCart(AddToCartDto addToCartDto, Product product, User user) {
-        Cart cart = new Cart(product, addToCartDto.getQuantity(), user);
+    public Cart addToCart(AddToCartDto addToCartDto, Product product, UserDto user) {
+
+        Cart cart = new Cart(product,userRepository.findByUserEmail(user.getUserEmail()),addToCartDto.getQuantity());
         cartRepository.save(cart);
 
+        return cart;
     }
 
     @Override
-    public CartDto cartItemsList(User user) {
-        List<Cart> cartList = cartRepository.findByUser(user);
+    public CartDto cartItemsList(UserDto user) {
+
+        List<Cart> cartList = cartRepository.findByUser(userRepository.findByUserEmail(user.getUserEmail()));
         List<CartItemDto> cartItems = new ArrayList<>();
 
         for (Cart cart : cartList) {
@@ -44,8 +52,7 @@ public class CartServiceImpl implements CartService {
         }
         long cartValue = 0;
         for (CartItemDto cartItemDto : cartItems) {
-            cartValue += cartItemDto.getProduct()
-                    .getProductPrice() * (cartItemDto.getQuantity());
+            cartValue += (cartItemDto.getProduct().getProductPrice()*cartItemDto.getQuantity());
         }
         return new CartDto(cartItems, cartValue);
     }
@@ -56,16 +63,17 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateCartItem(AddToCartDto cartDto, User user, Product product) {
+    public void updateCartItem(AddToCartDto cartDto, UserDto user ) {
         Cart cart = cartRepository.getReferenceById(cartDto.getId());
         cart.setQuantity(cartDto.getQuantity());
         cartRepository.save(cart);
     }
 
     @Override
-    public void deleteCartItem(int id, int userId) {
-        if (!cartRepository.existsById(id))
-            cartRepository.deleteById(id);
+    public void deleteCartItem(int id) {
+                    cartRepository.deleteById(id);
+
+
 
     }
 
@@ -75,7 +83,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteUserCartItems(User user) {
-        cartRepository.deleteByUser(user);
+    public void deleteUserCartItems(UserDto user) {
+
+
+        cartRepository.deleteByUser(userRepository.findByUserEmail(user.getUserEmail()));
     }
 }

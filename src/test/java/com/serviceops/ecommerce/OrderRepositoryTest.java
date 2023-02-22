@@ -2,6 +2,8 @@ package com.serviceops.ecommerce;
 
 import com.serviceops.ecommerce.entities.*;
 import com.serviceops.ecommerce.repository.*;
+import com.serviceops.ecommerce.service.OrderService;
+import com.serviceops.ecommerce.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @SpringBootTest
 class OrderRepositoryTest {
+    @Autowired
+    UserService userService;
 
     @Autowired
     ProductRepository productrepo;
@@ -26,6 +30,9 @@ class OrderRepositoryTest {
     private SubCategoryRepository subCategoryrepo;
     @Autowired
     private OrderItemRepository orderItemRepository;
+
+    @Autowired
+    private OrderService orderService;
 
     @Test
     void orderProductRepo(){
@@ -47,11 +54,23 @@ class OrderRepositoryTest {
         orderItem.setQuantity(23);
         orderItem.setOrder(order);
         orderItemRepository.save(orderItem);
-        orderRepository.save(new Order(123,save,orderItems));
+        orderRepository.save(new Order());
 
 
 
 
     }
 
+    @Test
+    void testOrderService() {
+        List<OrderItem> orderItems = orderItemRepository.findAll();
+        for (int i = 0; i < orderItems.size(); i++) {
+            System.out.println(orderItems.get(i).getProduct());
+            
+        }
+    }
+    @Test
+    void testPlaceOrder(){
+        orderService.placeOrder(userService.getUser("customer@gmail.com"));
+    }
 }
