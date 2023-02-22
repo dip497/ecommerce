@@ -1,7 +1,6 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.user.UserDto;
-import com.serviceops.ecommerce.entities.User;
 
 import java.util.List;
 

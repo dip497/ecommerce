@@ -1,7 +1,6 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.user.UserDto;
-import com.serviceops.ecommerce.entities.Role;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.exceptions.CustomException;
 import com.serviceops.ecommerce.repository.UserRepository;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream().map((user)-> entityToDto(user)).collect(Collectors.toList());
+        return users.stream().map(this::entityToDto).toList();
     }
 
     @Override
@@ -79,22 +78,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(UserDto userDto) {
-        System.out.println("in servier" + userDto);
-        User user =  userRepository.findById(userDto.getUserId()).get();
-
-        user.setUserFirstName(userDto.getUserFirstName());
-        user.setUserLastName(userDto.getUserLastName());
-        user.setUserRole(userDto.getUserRole());
-
-        userRepository.save(user);
+        Optional<User> optionalUser =  userRepository.findById(userDto.getUserId());
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setUserFirstName(userDto.getUserFirstName());
+            user.setUserLastName(userDto.getUserLastName());
+            user.setUserRole(userDto.getUserRole());
+            userRepository.save(user);
+        }else{
+            throw  new CustomException("user not found");
+        }
         return true;
-    }
-
-
-
-    public boolean canCrud(UserDto userDto) {
-        User user = userRepository.findByUserEmail(userDto.getUserEmail());
-        return user.getUserRole() == Role.ADMIN;
     }
 
     private UserDto entityToDto(User user){

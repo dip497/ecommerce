@@ -7,15 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-
-import java.security.Principal;
 
 @Controller
 public class MainController {
 
     @Autowired
     private UserService userService;
+    private  static final String ADMIN_USERS_URL = "redirect:/admin/users";
 
     @GetMapping("/")
     public String viewHomePage(){
@@ -28,8 +26,7 @@ public class MainController {
     }
 
     @GetMapping("/admin/home")
-    public String viewAdminHomePage(Principal principal){
-        System.out.println(principal.getName());
+    public String viewAdminHomePage(){
         return "admin/admin_home";
     }
 
@@ -59,16 +56,14 @@ public class MainController {
 
     @RequestMapping("/admin/users/adduser/save")
     public String viewAddUserSave(@ModelAttribute UserDto userDto){
-        boolean isSignUp = userService.signUp(userDto);
-        System.out.println(isSignUp);
-        return "redirect:/admin/users";
+        userService.signUp(userDto);
+        return ADMIN_USERS_URL;
     }
 
     @RequestMapping("/register/save")
     public ModelAndView saveStudent(@ModelAttribute UserDto userDto){
 
         ModelAndView mav = new ModelAndView("registerMessage");
-        System.out.println(userDto);
         boolean isSignUp = userService.signUp(userDto);
         if(isSignUp){
             mav.addObject("message","saved");
@@ -78,7 +73,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping("/admin/users")
+    @GetMapping("/admin/users")
     public ModelAndView viewAllUser(){
         ModelAndView mav = new ModelAndView("admin/admin_user");
         mav.addObject("users",userService.getAllUsers());
@@ -87,9 +82,8 @@ public class MainController {
 
     @GetMapping("/admin/users/deleteuser")
     public String editUser(@RequestParam("id") Long id){
-        boolean isRemove = userService.deleteUser(id);
-        System.out.println(isRemove);
-        return "redirect:/admin/users";
+        userService.deleteUser(id);
+        return ADMIN_USERS_URL;
     }
 
 
@@ -97,7 +91,6 @@ public class MainController {
     @GetMapping("/admin/users/updateuser/{email}")
     public ModelAndView viewUpdateUser(@PathVariable(value = "email") String email){
         UserDto userDto = userService.getUser(email);
-        System.out.println(userDto);
         ModelAndView model = new ModelAndView("admin/updateuser");
         model.addObject("user", userDto);
         return model;
@@ -105,10 +98,8 @@ public class MainController {
 
     @PostMapping("/admin/users/updateuser/save")
     public String saveUpdateUser(@ModelAttribute UserDto userDto){
-        System.out.println(userDto);
-
-        boolean update = userService.updateUser(userDto);
-        return "redirect:/admin/users";
+        userService.updateUser(userDto);
+        return ADMIN_USERS_URL;
     }
 
 
