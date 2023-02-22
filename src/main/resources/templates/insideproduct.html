@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All Products</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2" align="center">
+
+    <h3>ALl Products List</h3>
+    <table style="width:80%" border="1"
+           class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th th:text="${product.getProductName()}" ></th>
+
+        </tr>
+
+        <tr>
+            <td th:text="${product.getProductPrice()}+Rs"></td></tr>
+
+          <tr>  <td th:text="${product.getProductDesc()}"</td>
+        </tr>
+
+        </tbody>
+        <a th:href="@{/user/addToCart/{product}}"class="btn btn-danger">AddtoCart</a>
+    </table>
+</div>
+</body>
+
+

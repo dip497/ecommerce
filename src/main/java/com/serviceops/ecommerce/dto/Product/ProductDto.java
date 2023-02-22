@@ -1,40 +1,34 @@
-package com.serviceops.ecommerce.entities;
-
-import jakarta.persistence.*;
-
-import java.util.List;
-
-@Entity
-public class Product {
+package com.serviceops.ecommerce.dto.Product;
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
+import com.serviceops.ecommerce.entities.SubCategory;
+
+public class ProductDto {
+
     private long productId;
 
     private String productName;
 
     private String productDesc;
     private int productPrice;
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, orphanRemoval = true )
-    private List<Review> reviews;
 
 
 
-    @ManyToOne
-    private SubCategory productSubCategory;
+    private SubCategoryDto productSubCategory;
 
-    protected Product(){
+    public ProductDto(){
 
     }
-    public Product(String productName, String productDesc, int productPrice, SubCategory productSubCategory) {
+    public ProductDto(Long productId,String productName, String productDesc, int productPrice, SubCategoryDto productSubCategory) {
+        this.productId=productId;
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
         this.productSubCategory = productSubCategory;
     }
 
-       public long getProductId() {
+    public long getProductId() {
         return productId;
     }
 
@@ -62,20 +56,14 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public SubCategory getProductCategory() {
+    public SubCategoryDto getProductSubCategory() {
         return productSubCategory;
     }
-    public void setProductSubCategory(SubCategory productSubCategory) {
-        this.productSubCategory = productSubCategory;
-    }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
+
+
+
 
 
 

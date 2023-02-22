@@ -16,7 +16,7 @@ public class Category {
     private Long categoryId;
 
     private String categoryName;
-    @OneToMany(mappedBy ="category",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="category",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<SubCategory> subCategorySet = new HashSet<>();
     protected Category(){
 
@@ -47,6 +47,25 @@ public class Category {
     public void setSubCategoriesSet(Set<SubCategory> subCategorySet) {
         this.subCategorySet = subCategorySet;
     }
+    public Set<SubCategory> getSubCategorySet() {
+        return subCategorySet;
+    }
+    public void addSubCategory(SubCategory subCategory)
+    {
+        subCategorySet.add(subCategory);
+    }
+    public void removeSubCategory(SubCategory subCategory)
+    {
+        subCategorySet.remove(subCategory);
+    }
 
+//    @Override
+//    public String toString() {
+//        return "Category{" +
+//                "categoryId=" + categoryId +
+//                ", categoryName='" + categoryName + '\'' +
+//                ", subCategoriesSet=" + subCategorySet +
+//                '}';
+//    }
 
 }
