@@ -2,9 +2,6 @@ package com.serviceops.ecommerce.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 public class Cart {
@@ -15,29 +12,62 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cartId;
 
-
-    @OneToMany(mappedBy = "orderProductId",fetch = FetchType.LAZY)
-    private List<OrderProduct> orderProduct = new ArrayList<>();
-
+    @ManyToOne
+    private Product product;
 
     @OneToOne
     private  User user;
-    public Cart(List<OrderProduct> orderProduct,User user) {
-        this.orderProduct = orderProduct;
+
+    private int quantity;
+
+    public Cart(Product product, Integer quantity, User user) {
+        this.product = product;
+        this.quantity = quantity;
         this.user = user;
+
+    }
+
+    public Cart(Integer cartId, Product product, User user, int quantity) {
+        this.cartId = cartId;
+        this.product = product;
+        this.user = user;
+        this.quantity = quantity;
     }
 
     public Cart() {
+
     }
 
+    public Integer getCartId() {
+        return cartId;
+    }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "cartId=" + cartId +
-                ", orderProduct=" + orderProduct +
-                ", user=" + user +
-                '}';
+    public void setCartId(Integer cartId) {
+        this.cartId = cartId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
 
