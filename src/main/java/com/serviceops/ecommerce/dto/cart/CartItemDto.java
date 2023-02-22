@@ -11,13 +11,15 @@ public class CartItemDto {
     private @NotNull Integer quantity;
     private @NotNull Product product;
 
+    public CartItemDto(){
+
+    }
+
 
     public CartItemDto(Cart cart) {
         this.setId(cart.getCartId());
-        this.setProduct(cart.getProduct());
         this.setQuantity(cart.getQuantity());
-
-
+        this.setProduct(cart.getProduct());
     }
 
     @Override
@@ -25,7 +27,7 @@ public class CartItemDto {
         return "CartItemDto{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", product=" + product +
+                ", productName=" + product.getProductName()+
                 '}';
     }
 
@@ -42,13 +44,16 @@ public class CartItemDto {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = this.quantity;
+        this.quantity = quantity;
     }
 
     public Product getProduct() {
         return product;
     }
 
+    public String getProductName(){
+        return product.getProductName();
+    }
     public void setProduct(Product product) {
         this.product = product;
     }

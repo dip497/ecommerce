@@ -1,12 +1,18 @@
 package com.serviceops.ecommerce.service;
 
+import com.serviceops.ecommerce.dto.order.OrderDto;
+import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.Order;
+import com.serviceops.ecommerce.entities.OrderItem;
 import com.serviceops.ecommerce.entities.User;
 
 import java.util.List;
 
 public interface OrderService {
-    void placeOrder(User user);
-    public List<Order> ordersList(User user);
+    void placeOrder(UserDto userDto);
+    public List<Order> ordersList(UserDto user);
     public Order getOrder(Integer orderId);
+    List<OrderItem> orderItemList(UserDto user);
+
+
 }

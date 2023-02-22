@@ -66,6 +66,6 @@ public class OrderItem {
 
     public void setPrice(long price) {
       this.price = price;
-
     }
+
 }

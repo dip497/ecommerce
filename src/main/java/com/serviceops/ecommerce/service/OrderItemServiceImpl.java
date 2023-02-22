@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class OrderItemServiceImpl implements OrderItemService{
@@ -16,6 +18,13 @@ public class OrderItemServiceImpl implements OrderItemService{
     @Override
     public void addOrderedProduct(OrderItem orderItem){
         orderItemRepository.save(orderItem);
+    }
+
+    @Override
+    public List<OrderItem> getAllOderItem() {
+
+
+        return orderItemRepository.findAll();
     }
 
 }

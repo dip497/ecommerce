@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce.dto.order;
 
+import com.serviceops.ecommerce.entities.Order;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderDto {
@@ -8,9 +9,8 @@ public class OrderDto {
     private @NotNull Integer userId;
 
     public OrderDto(){}
-    public OrderDto(Integer id, Integer userId) {
-        this.id = id;
-        this.userId = userId;
+    public OrderDto(Order order) {
+       this.setId(order.getId());
     }
 
     public Integer getId() {

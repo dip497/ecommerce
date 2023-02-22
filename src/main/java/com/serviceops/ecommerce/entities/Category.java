@@ -47,13 +47,6 @@ public class Category {
     public void setSubCategoriesSet(Set<SubCategory> subCategorySet) {
         this.subCategorySet = subCategorySet;
     }
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", subCategoriesSet=" + subCategorySet +
-                '}';
-    }
+
 
 }

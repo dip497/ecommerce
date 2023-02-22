@@ -1,6 +1,6 @@
 package com.serviceops.ecommerce;
 
-import com.serviceops.ecommerce.dto.user.UserDto;
+import com.serviceops.ecommerce.dto.user.SignUpDto;
 import com.serviceops.ecommerce.entities.Role;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.UserRepository;
@@ -28,12 +28,12 @@ class UserRepositoryTests {
 
     @Test
     void TestUserService(){
-        UserDto user =new UserDto();
-        user.setUserFirstName("user");
-        user.setUserLastName("service");
-        user.setUserEmail("dipendra@gmail.com");
-        user.setUserPassword("test");
-        user.setUserRole(Role.ADMIN);
+        SignUpDto user =new SignUpDto();
+        user.setFirstName("user");
+        user.setLastName("service");
+        user.setEmail("dipendra@gmail.com");
+        user.setPassword("test");
+        user.setRole("ADMIN");
 
         logger.info("user -> {}",   userService.signUp(user));
 
