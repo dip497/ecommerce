@@ -48,6 +48,15 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public User getUser(String email) {
+        User user = userRepository.findByUserEmail(email);
+        if (Helper.isNull(user)) {
+            throw new CustomException("User not exists");
+        }
+        return user;
+    }
+
     public boolean canCrud(UserRole userRole) {
         User user = userRepository.findByUserEmail(userRole.getEmail());
         return user.getUserRole() == Role.ADMIN;
