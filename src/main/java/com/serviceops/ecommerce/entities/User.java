@@ -70,6 +70,7 @@ public class User {
     }
 
     public Role getUserRole() {
+        System.out.println(userRole.toString());
         return userRole;
     }
 

@@ -31,8 +31,9 @@ class UserRepositoryTests {
         SignUpDto user =new SignUpDto();
         user.setFirstName("user");
         user.setLastName("service");
-        user.setEmail("test0d");
-        user.setPassword("check");
+        user.setEmail("dipendra@gmail.com");
+        user.setPassword("test");
+        user.setRole("ADMIN");
 
         logger.info("user -> {}",   userService.signUp(user));
 
