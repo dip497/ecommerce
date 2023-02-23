@@ -36,18 +36,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signIn(UserDto signInDto) {
-        User user = userRepository.findByUserEmail(signInDto.getUserEmail());
-        if (Helper.isNull(user)) {
-            throw new CustomException("User not exists");
-        } else if (!PasswordHelper.matchPassword(user.getUserPassword(), signInDto.getUserPassword())) {
-            throw new CustomException("Password does not match");
-
-        }
-        return true;
-    }
-
-    @Override
     public UserDto getUser(String email) {
         User user = userRepository.findByUserEmail(email);
 

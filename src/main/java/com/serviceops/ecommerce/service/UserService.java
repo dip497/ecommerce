@@ -7,7 +7,6 @@ import java.util.List;
 public interface UserService {
     boolean signUp(UserDto userDto);
 
-    boolean signIn(UserDto userDto);
     UserDto getUser(String email);
 
     List<UserDto> getAllUsers();

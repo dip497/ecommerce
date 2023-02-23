@@ -21,30 +21,34 @@
     </div>
 </nav>
 <body>
-<h2>Cart</h2>
-<a th:href="@{/user/placeorder}" ><button type="button" class="btn btn-primary btn-sm">Place Order</button></a>
+<div class="container my-2" align="center">
 
-<div>
-<table>
-       <tr th:each="cartItemsList:${cart}">
-           <td th:text="${cartItemsList.getProduct().getProductName()}"></td>
-           <td th:text="${cartItemsList.getQuantity()}"></td>
-           <td th:text="${cartItemsList.getProduct().getProductPrice()}"></td>
-           <td> <a th:href="@{/user/cart/update{id} (id=${cartItemsList.getId()})}"><button type="button" class="btn btn-primary" aria-label="update">Update</button></a></td>
-           <td> <a th:href="@{/user/cart/delete{id}(id=${cartItemsList.getId()})}"><button type="button" class="btn btn-primary" aria-label="Delete">Delete</button></a></td>
-       </tr>
-Cart Value =    <a th:text="${cartValue}"></a>
+    <h3>cart</h3>
 
-
-
-</table>
-
-
+    <a th:href="@{/user/placeorder}" ><button type="button" class="btn btn-primary btn-sm">Place Order</button></a>
+    Total Cart Value =<a th:text="${cartValue}"></a>
+    <table style="width:80%" border="1"
+           class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Quantity</th>
+            <th>Product Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cartItemsList:${cart}">
+            <td th:text="${cartItemsList.getProduct().getProductName()}"></td>
+            <td th:text="${cartItemsList.getQuantity()}"></td>
+            <td th:text="${cartItemsList.getProduct().getProductPrice()}"></td>
+            <td> <a th:href="@{/user/cart/update{id} (id=${cartItemsList.getId()})}"><button type="button" class="btn btn-primary" aria-label="update">Update</button></a>
+             <a th:href="@{/user/cart/delete{id}(id=${cartItemsList.getId()})}"><button type="button" class="btn btn-primary" aria-label="Delete">Delete</button></a></td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
-
-
-
-</form>
 </body>
 </html>
+
