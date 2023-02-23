@@ -29,7 +29,7 @@
             <td th:text="${order.getQuantity()}"></td>
             <td th:text="${order.getPrice()}"></td>
             <td>
-                <a th:href="@{/user/allorder/addreview{product}(product=${order.getProduct()})}" class="btn btn-primary">Add add review</a>
+                <a th:href="@{/user/allorder/addreview/{productid}(productid=${order.getProduct().getProductId()})}" class="btn btn-primary">Add add review</a>
                 <a th:href="@{/user/allorder/addreview}" class="btn btn-primary">show review</a>
             </td>
         </tr>

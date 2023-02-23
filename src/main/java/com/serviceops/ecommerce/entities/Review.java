@@ -28,10 +28,11 @@ public class Review {
 
     }
 
-    public Review(Ratings ratings, Product product, User user) {
+    public Review(Ratings ratings, Product product, User user,String description) {
         this.ratings = ratings;
         this.product = product;
         this.user = user;
+        this.description = description;
     }
 
     public User getUser() {

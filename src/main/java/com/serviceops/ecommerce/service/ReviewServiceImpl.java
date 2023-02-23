@@ -31,7 +31,7 @@ public class ReviewServiceImpl implements ReviewService {
     public boolean createReview(ReviewDto reviewDto) {
         Product product = productRepository.findById(reviewDto.getProduct().getProductId()).get();
         User user = userRepository.findById(reviewDto.getUser().getUserId()).get();
-        Review review = new Review(reviewDto.getRatings(),product,user);
+        Review review = new Review(reviewDto.getRatings(),product,user,reviewDto.getDescription());
         reviewRepositoryDao.save(review);
         return true;
     }

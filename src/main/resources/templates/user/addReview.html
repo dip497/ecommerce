@@ -14,12 +14,11 @@
   <hr>
   <h2>add reivew</h2>
 
-  <form action="#" th:action="@{/user/allorder/addreview/save}" th:object="${reviewDto}"
+  <form action="#" th:action="@{/user/allorder/addreview/save/{id}(id=${reviewDto.getProduct().getProductId()})}" th:object="${reviewDto}"
         method="POST">
-    <input type="hidden" th:field="*{user}" placeholder="user " class="form-control mb-4 col-4">
     <input type="text" th:field="*{ratings}" placeholder="rating" class="form-control mb-4 col-4">
     <input type="text" th:field="*{description}" placeholder="description" class="form-control mb-4 col-4">
-    <input type="hidden" th:field="*{product}" placeholder="product" class="form-control mb-4 col-4">
+<!--    <input  th:field="*{product}" placeholder="product" class="form-control mb-4 col-4">-->
 
     <button type="submit" class="btn btn-info col-2">Save
       customer</button>

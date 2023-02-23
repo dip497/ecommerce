@@ -56,6 +56,17 @@ public class ReviewDto   {
         this.product = product;
     }
 
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    public void setRatings(Ratings ratings) {
+        this.ratings = ratings;
+    }
 
     @Override
     public String toString() {
