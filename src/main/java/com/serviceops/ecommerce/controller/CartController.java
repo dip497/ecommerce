@@ -30,13 +30,13 @@ public class CartController {
 
 
 
-    @GetMapping("/user/")
-    public ModelAndView addToCart(Principal principal, AddToCartDto addToCartDto){
-        ModelAndView mav = new ModelAndView("user/cart");
-        ProductDto product = productService.findProductById(addToCartDto.getProductId());
-
-        mav.addObject("cart",cartService.addToCart(addToCartDto,product,userService.getUser(principal.getName())));
-        return mav;
+    @GetMapping("/user/addToCart/save/{id}")
+    public String addToCart(@PathVariable(value = "id") Long id, Principal principal){
+        ProductDto productDto = productService.findProductById(id);
+        AddToCartDto addToCartDto = new AddToCartDto();
+        addToCartDto.setQuantity(1);
+       cartService.addToCart(addToCartDto,productDto,userService.getUser(principal.getName()));
+        return "redirect:/user/cart";
 
     }
 

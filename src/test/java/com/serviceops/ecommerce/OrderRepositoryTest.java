@@ -77,7 +77,8 @@ class OrderRepositoryTest {
     @Test
     void test(){
 
-        System.out.println(orderItemRepository.retriveOrder(userRepository.findByUserEmail("adarash@gmail.com")));
+        System.out.println(orderItemRepository.retriveOrder(userRepository.findByUserEmail("prakhar@gmail.com")));
     }
+
 
 }

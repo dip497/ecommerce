@@ -14,6 +14,8 @@ public class Review {
     @Enumerated(EnumType.STRING)
     private Ratings ratings;
 
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "product_product_id")
     private Product product;
@@ -48,7 +50,13 @@ public class Review {
         this.product = product;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Long getReviewId() {
         return reviewId;

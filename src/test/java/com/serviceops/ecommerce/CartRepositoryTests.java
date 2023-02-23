@@ -1,11 +1,13 @@
 package com.serviceops.ecommerce;
 
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.cart.AddToCartDto;
 import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.*;
 import com.serviceops.ecommerce.repository.*;
 import com.serviceops.ecommerce.service.CartService;
+import com.serviceops.ecommerce.service.ProductService;
 import com.serviceops.ecommerce.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -37,6 +39,9 @@ class CartRepositoryTests {
 
 	@Autowired
 	private UserService service;
+
+	@Autowired
+	private ProductService productService;
 	@Autowired
 	private UserRepository userRepository;
 	@Test
@@ -44,11 +49,13 @@ class CartRepositoryTests {
 	void addProductToCart() {
 		Category c = crepo.save(new Category("Electronics"));
 		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
+
 		Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
+		ProductDto productDto = productService.findProductById(product.getProductId());
 		UserDto save = service.getUser("rohan@gmail.com");
 		AddToCartDto addToCartDto = new AddToCartDto();
 		addToCartDto.setQuantity(43);
-		cartService.addToCart(addToCartDto,product,save);
+		cartService.addToCart(addToCartDto,productDto,save);
 
 
 	}

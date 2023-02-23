@@ -29,13 +29,14 @@
         <tr>
             <td th:text="${product.getProductPrice()}+Rs"></td></tr>
 
-          <tr>  <td th:text="${product.getProductDesc()}"</td>
+          <tr>  <td th:text="${product.getProductDesc()}"></td>
         </tr>
 
         </tbody>
-        <a th:href="@{/user/addToCart/{product}}"class="btn btn-danger">AddtoCart</a>
+        <a th:href="@{/user/addToCart/save/{id}(id=${product.getProductId()})}"class="btn btn-danger">AddtoCart</a>
     </table>
 </div>
 </body>
+
 
 

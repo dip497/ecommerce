@@ -12,7 +12,8 @@ import java.util.List;
 public interface OrderItemRepository extends JpaRepository<OrderItem,Integer> {
     List<OrderItem> findAllByOrder(Order order);
 
-    @Query(value = "select a, b from OrderItem as a join a.order b on a.id = b.id and b.user= :user")
+
+    @Query(value = "select a, b from OrderItem as a join a.order b on a.order.id = b.id and b.user=:user")
     List<OrderItem> retriveOrder(User user);
 
 }

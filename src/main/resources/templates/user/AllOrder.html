@@ -1,18 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Orders</title>
+    <meta charset="ISO-8859-1">
+    <title>All Orders</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 </head>
 <body>
-<h2>Your Orders</h2>
-<div>
-    <table>
+<div class="container my-2" align="center">
+
+    <h3>order List</h3>
+    <table style="width:80%" border="1"
+           class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
         <tr th:each="order:${ordersList}">
             <td th:text="${order.getProduct().getProductName()}"></td>
+            <td th:text="${order.getQuantity()}"></td>
+            <td th:text="${order.getPrice()}"></td>
+            <td>
+                <a th:href="@{/user/allorder/addreview{product}(product=${order.getProduct()})}" class="btn btn-primary">Add add review</a>
+                <a th:href="@{/user/allorder/addreview}" class="btn btn-primary">show review</a>
+            </td>
         </tr>
+
+        </tbody>
     </table>
 </div>
-
 </body>
 </html>
