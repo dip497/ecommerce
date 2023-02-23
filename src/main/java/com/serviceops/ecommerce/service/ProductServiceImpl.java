@@ -20,47 +20,51 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
-    ProductRepository productRepositoryDao;
+    private ProductRepository productRepository;
     @Autowired
-    SubCategoryRepository subCategoryRepository;
+    private SubCategoryRepository subCategoryRepository;
 
     @Override
     public boolean createProduct(ProductDto product) {
-        productRepositoryDao.save(new Product(product.getProductName(), product.getProductDesc(), product.getProductPrice(),subCategoryRepository.findById(product.getProductSubCategory().getSubcategoryId()).get()));
+        productRepository.save(new Product(product.getProductName(), product.getProductDesc(), product.getProductPrice(),subCategoryRepository.findById(product.getProductSubCategory().getSubcategoryId()).get()));
         return true;
     }
 
     @Override
     public ProductDto updateProduct(ProductDto product) {
-       Product product1 = productRepositoryDao.findById(product.getProductId()).get();
+       Product product1 = productRepository.findById(product.getProductId()).get();
        product1.setProductDesc(product.getProductDesc());
        product1.setProductName(product.getProductName());
        product1.setProductSubCategory(subCategoryRepository.findById(product.getProductSubCategory().getSubcategoryId()).get());
        return product;
     }
+    public void deleteByproductSubCategory(Long Id){
+        productRepository.deleteByproductSubCategory(Id);
+    }
 
     @Override
-    public void removeProduct(Long Id) {
-        productRepositoryDao.deleteById(Id);
+    public boolean removeProduct(Long Id) {
+        productRepository.deleteById(Id);
+        return true;
     }
 
     @Override
     public ProductDto findProductById(Long Id) {
 
-        Product product = productRepositoryDao.findById(Id).get();
+        Product product = productRepository.findById(Id).get();
         return this.ProductToDto(product);
     }
 
     @Override
     public List<ProductDto> getAllProducts() {
 
-        List<Product> products = productRepositoryDao.findAll();
+        List<Product> products = productRepository.findAll();
         return products.stream().map(products1 -> ProductToDto(products1)).collect(Collectors.toList());
     }
 
     @Override
     public SubCategoryDto findProductSubCategory(Long Id) {
-        return convertsub(productRepositoryDao.findById(Id).get().getProductCategory());
+        return convertsub(productRepository.findById(Id).get().getProductCategory());
     }
 
     private SubCategoryDto convertsub(SubCategory subCategory)

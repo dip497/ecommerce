@@ -1,6 +1,7 @@
 package com.serviceops.ecommerce.controller;
 
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.service.CategoryService;
 import com.serviceops.ecommerce.service.SubCategoryService;
@@ -63,6 +64,12 @@ public class AdminSubCategoryController {
         return "redirect:/admin/Category";
 
     }
-
+    @RequestMapping("/admin/AllProducts/{id}")
+    public String getAllProducts(@PathVariable("id") Long Id, Model model)
+    {
+        Set<ProductDto> productSet = subCategoryService.findSubCategoryById(Id).getProductSet();
+        model.addAttribute("products",productSet);
+        return "adminproducts";
+    }
 
 }

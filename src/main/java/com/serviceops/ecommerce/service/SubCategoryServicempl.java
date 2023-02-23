@@ -12,29 +12,29 @@ import com.serviceops.ecommerce.repository.SubCategoryRepository;
 import com.serviceops.ecommerce.utils.Helper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
 public class SubCategoryServicempl implements SubCategoryService{
 
     @Autowired
-    SubCategoryRepository subCategoryRepository;
+    private SubCategoryRepository subCategoryRepository;
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductService productService;
     @Override
     public boolean createSubCategory(SubCategoryDto subCategoryDto) {
-        if(!Helper.isNull(subCategoryRepository.findBysubcategoryName(subCategoryDto.getSubcategoryName())))
-        {
-            throw new CategoryExist("Category Already Exist");
-        }
-        else{
-            subCategoryRepository.save(dtotosub(subCategoryDto));
+
+          subCategoryRepository.save(dtotosub(subCategoryDto));
             return true;
-        }
+
     }
 
     @Override
@@ -45,7 +45,13 @@ public class SubCategoryServicempl implements SubCategoryService{
 
     @Override
     public void removeSubCategoryById(Long Id) {
-        subCategoryRepository.deleteById(Id);
+        if(subCategoryRepository.findById(Id).get().getProductSet().isEmpty()) {
+            subCategoryRepository.deleteById(Id);
+        }
+        else{
+            productService.deleteByproductSubCategory(Id);
+            subCategoryRepository.deleteById(Id);
+        }
     }
 
     @Override
