@@ -34,22 +34,33 @@ public class AdminSubCategoryController {
         return "redirect:/admin/SubCategories/"+id;
 
     }
-    @RequestMapping("/admin/addSubCategory/{id}")
+    @RequestMapping("/admin/addSubcategory/{id}")
     public ModelAndView addSubCategory(@PathVariable("id") Long Id)
     {
         ModelAndView mav = new ModelAndView("addsubcategory");
         SubCategoryDto subCategoryDto = new SubCategoryDto();
-        CategoryDto categoryById = categoryService.findCategoryById(Id);
-        subCategoryDto.setCategory(categoryById);
+        subCategoryDto.setCategory(categoryService.findCategoryById(Id));
+//        CategoryDto categoryById = categoryService.findCategoryById(Id);
+        logger.info("subcatego -> {}",subCategoryDto);
         mav.addObject("subcategory",subCategoryDto);
+
+//        mav.addObject("id");
         return mav;
     }
-    @RequestMapping("/admin/SubCategory/save")
-    public String getFormDetails(@ModelAttribute SubCategoryDto category)
+    @RequestMapping("/admin/SubCategory/save/{id}")
+    public String getFormDetails(@PathVariable("id") Long Id,@ModelAttribute SubCategoryDto subcategory)
     {
-        Long a = category.getCategory().getCategoryId();
-        subCategoryService.createSubCategory(category);
-        return "redirect:/admin/SubCategory/{"+a+"}";
+        logger.info("SubcategorySto->",subcategory.toString());
+        logger.info("Category ->{}",categoryService.findCategoryById(Id));
+        subcategory.setCategory(categoryService.findCategoryById(Id));
+        logger.info("SubcategorySto->",subcategory);
+//        boolean a =subCategoryService.createSubCategory(subcategory);
+//        System.out.println(a);
+//        logger.info("SubCategory ->{}",subcategory);
+//        logger.info("Category -> {}",category);
+//        System.out.println(Id);
+//        logger.info("category ->{}",category);
+        return "redirect:/admin/Category";
 
     }
 
