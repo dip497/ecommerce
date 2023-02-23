@@ -1,9 +1,11 @@
 package com.serviceops.ecommerce.service;
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.entities.SubCategory;
 
 import java.util.List;
+import java.util.Set;
 
 public interface SubCategoryService {
 

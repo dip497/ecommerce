@@ -61,6 +61,12 @@ public class AdminSubCategoryController {
         return "redirect:/admin/Category";
 
     }
-
+    @RequestMapping("/admin/AllProducts/{id}")
+    public String getAllProducts(@PathVariable("id") Long Id, Model model)
+    {
+        Set<ProductDto> productSet = subCategoryService.findSubCategoryById(Id).getProductSet();
+        model.addAttribute("products",productSet);
+        return "adminproducts";
+    }
 
 }

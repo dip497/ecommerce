@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce;
 
+import com.serviceops.ecommerce.dto.Category.CategoryDto;
 import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.entities.Product;
 import com.serviceops.ecommerce.entities.SubCategory;
@@ -45,7 +46,17 @@ public class SubCategoryTests {
     @Test
     void deleteSubCategories()
     {
-        subCategoryService.removeSubCategoryById(4L);
-
+//        SubCategoryDto subCategoryById = subCategoryService.findSubCategoryById(13L);
+//        logger.info("SubCategory -> {}",subCategoryById);
+        subCategoryService.removeSubCategoryById(6L);
+    }
+    @Test
+    void subcategory()
+    {
+        SubCategoryDto subCategoryDto = new SubCategoryDto();
+        CategoryDto categoryById = categoryService.findCategoryById(21L);
+        subCategoryDto.setCategory(categoryById);
+        subCategoryDto.setSubcategoryName("Check");
+        subCategoryService.createSubCategory(subCategoryDto);
     }
 }
