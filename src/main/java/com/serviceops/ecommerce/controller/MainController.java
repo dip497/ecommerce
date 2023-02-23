@@ -2,15 +2,19 @@ package com.serviceops.ecommerce.controller;
 
 
 import com.serviceops.ecommerce.dto.user.UserDto;
+import com.serviceops.ecommerce.service.ProductService;
 import com.serviceops.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
 
+    @Autowired
+    private ProductService productService;
     @Autowired
     private UserService userService;
     private  static final String ADMIN_USERS_URL = "redirect:/admin/users";
@@ -31,7 +35,8 @@ public class MainController {
     }
 
     @GetMapping("/user/home")
-    public String viewUserHomePage(){
+    public String viewUserHomePage(Model model){
+        model.addAttribute("products", productService.getAllProducts());
         return "user/user_home";
     }
     @GetMapping("/home")

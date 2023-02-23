@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>All Products</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Ecommerce</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/user/home}">Home</a></li>
+            <li><a th:href="@{/user/cart}">Cart</a></li>
+            <li><a th:href="@{/user/allOrder}">Order</a></li>
+            <li><a th:href="@{/user/Categories}">Categories</a></li>
+        </ul>
+    </div>
+</nav>
 <body>
 <div class="container my-2" align="center">
 
@@ -17,24 +29,32 @@
         <thead>
         <tr>
             <th>Product Name</th>
-
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th th:text="${product.getProductName()}" ></th>
-
-        </tr>
-
-        <tr>
-            <td th:text="${product.getProductPrice()}+Rs"></td></tr>
-
-          <tr>  <td th:text="${product.getProductDesc()}"></td>
-        </tr>
-
+        <tr><th th:text="${product.getProductName()}" ></th></tr>
+        <tr><td th:text="${product.getProductPrice()}+Rs"></td></tr>
+        <tr><td th:text="${product.getProductDesc()}"></td></tr>
         </tbody>
         <a th:href="@{/user/addToCart/save/{id}(id=${product.getProductId()})}"class="btn btn-danger">AddtoCart</a>
     </table>
+    <h3>ALl Product reivew List</h3>
+    <table style="width:80%" border="1"
+           class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Rating</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tr th:each="review: ${reviews}">
+            <td th:text="${review.description}"/>
+            <td th:text="${review.ratings}"/>
+            <td th:text="${review.user.userEmail}"/>
+        </tr>
+    </table>
+
 </div>
 </body>
 

@@ -2,9 +2,11 @@ package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
 import com.serviceops.ecommerce.dto.Product.ProductDto;
+import com.serviceops.ecommerce.dto.ReviewDto;
 import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.entities.Category;
 import com.serviceops.ecommerce.entities.Product;
+import com.serviceops.ecommerce.entities.Review;
 import com.serviceops.ecommerce.entities.SubCategory;
 import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.repository.SubCategoryRepository;
@@ -67,6 +69,8 @@ public class ProductServiceImpl implements ProductService{
         return convertsub(productRepository.findById(Id).get().getProductCategory());
     }
 
+
+
     private SubCategoryDto convertsub(SubCategory subCategory)
     {
         return new SubCategoryDto(subCategory.getSubcategoryId(),subCategory.getSubcategoryName(),convert(subCategory.getCategory()));
@@ -78,6 +82,5 @@ public class ProductServiceImpl implements ProductService{
     {
         return new ProductDto(product.getProductId(),product.getProductName(), product.getProductDesc(),product.getProductPrice(),convertsub(product.getProductCategory()));
     }
-
 
 }

@@ -12,6 +12,8 @@ public interface ReviewService {
 
     public boolean createReview(ReviewDto Review);
 
+     List<ReviewDto> productReview(Long productId);
+
 
 
 }

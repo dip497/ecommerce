@@ -32,7 +32,8 @@ public class ReviewTest {
     }
 
     @Test
-    void deleteCategory() {
+    void findReviewByProduct() {
+        System.out.println(reviewService.productReview(1L));
 
 
     }
