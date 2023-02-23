@@ -14,8 +14,10 @@
     <hr>
     <h2>Save Category</h2>
 
-    <form action="#" th:action="@{/admin/SubCategory/save}"  th:object="${subcategory}" method="POST">
-        <input type="text" th:field="*{subcategoryName}" placeholder="SubCategory Name" class="form-control mb-4 col-4">
+    <form action="#" th:action="@{/admin/SubCategory/save/{id}(id=${subcategory.getCategory().getCategoryId()})}"  th:object="${subcategory}" method="POST">
+        <input type="text" name="name" th:field="*{subcategoryName}"/>
+
+
         <button type="submit" class="btn btn-info col-2">Save
             SubCategory</button>
     </form>

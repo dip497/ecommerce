@@ -21,7 +21,9 @@ public class SubCategoryDto {
     public SubCategoryDto(){
 
     }
-
+    public SubCategoryDto(String subcategoryName){
+        this.subcategoryName=subcategoryName;
+    }
     public SubCategoryDto(Long subcategoryId,String subcategoryName, CategoryDto category) {
         this.subcategoryId = subcategoryId;
         this.subcategoryName = subcategoryName;
