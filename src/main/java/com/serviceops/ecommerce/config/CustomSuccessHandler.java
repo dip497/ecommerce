@@ -30,16 +30,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
-            System.out.println("role " + grantedAuthority.getAuthority());
             if (grantedAuthority.getAuthority().equals("CUSTOMER")) {
-                redirectUrl = "/user/user_home";
+                redirectUrl = "/user/home";
                 break;
             } else if (grantedAuthority.getAuthority().equals("ADMIN")) {
-                redirectUrl = "/admin/admin_home";
+                redirectUrl = "/admin/home";
                 break;
             }
         }
-        System.out.println("redirectUrl " + redirectUrl);
         if (redirectUrl == null) {
             throw new IllegalStateException();
         }

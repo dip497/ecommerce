@@ -17,7 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Order(1)
 public class SecurityConfig {
 
-
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder();
@@ -38,6 +39,7 @@ public class SecurityConfig {
                                 .usernameParameter("email")
                                 .defaultSuccessUrl("/home")
                                 .permitAll()
+                                .successHandler(customSuccessHandler)
                 ).logout(
                 logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
