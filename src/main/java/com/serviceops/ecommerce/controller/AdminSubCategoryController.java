@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce.controller;
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
 import com.serviceops.ecommerce.service.CategoryService;
 import com.serviceops.ecommerce.service.SubCategoryService;
@@ -7,11 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Set;
 
 @Controller
 public class AdminSubCategoryController {
@@ -35,10 +36,10 @@ public class AdminSubCategoryController {
     {
         ModelAndView mav = new ModelAndView("addsubcategory");
         SubCategoryDto subCategoryDto = new SubCategoryDto();
-        subCategoryDto.setCategory(categoryService.findCategoryById(Id));
-//        CategoryDto categoryById = categoryService.findCategoryById(Id);
+    subCategoryDto.setCategory(categoryService.findCategoryById(Id));
+   // CategoryDto categoryById = categoryService.findCategoryById(Id);
         logger.info("subcatego -> {}",subCategoryDto);
-        subCategoryDto.setSubcategoryName("stsdljfhsljdfh");
+          subCategoryDto.setSubcategoryName("stsdljfhsljdfh");
 
         mav.addObject("subcategory",subCategoryDto);
 
@@ -48,11 +49,11 @@ public class AdminSubCategoryController {
     @RequestMapping("/admin/SubCategory/save/{id}")
     public String getFormDetails(@PathVariable("id") Long Id,@ModelAttribute SubCategoryDto subcategory)
     {
-        logger.info("SubcategorySto->{}",subcategory);
 
         subcategory.setCategory(categoryService.findCategoryById(Id));
+        logger.info("SubcategorySto->{}",subcategory);
 
-//        boolean a =subCategoryService.createSubCategory(subcategory);
+            boolean a =subCategoryService.createSubCategory(subcategory);
 //        System.out.println(a);
 //        logger.info("SubCategory ->{}",subcategory);
 //        logger.info("Category -> {}",category);
