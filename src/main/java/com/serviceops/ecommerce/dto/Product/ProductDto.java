@@ -6,15 +6,13 @@ import com.serviceops.ecommerce.entities.SubCategory;
 
 public class ProductDto {
 
+
     private long productId;
 
     private String productName;
 
     private String productDesc;
     private int productPrice;
-
-
-
     private SubCategoryDto productSubCategory;
 
     public ProductDto(){
@@ -27,7 +25,7 @@ public class ProductDto {
         this.productPrice = productPrice;
         this.productSubCategory = productSubCategory;
     }
-
+    public void setProductId(Long productId){this.productId=productId;}
     public long getProductId() {
         return productId;
     }
@@ -59,7 +57,20 @@ public class ProductDto {
     public SubCategoryDto getProductSubCategory() {
         return productSubCategory;
     }
-
+    public void setProductSubCategory(SubCategoryDto productSubCategory) {
+        this.productSubCategory = productSubCategory;
+    }
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDesc='" + productDesc + '\'' +
+                ", productPrice=" + productPrice +
+                ", productSubCategory=" + productSubCategory +
+                ",productSubCategoryId="+this.getProductSubCategory().getSubcategoryId()+
+                '}';
+    }
 
 
 

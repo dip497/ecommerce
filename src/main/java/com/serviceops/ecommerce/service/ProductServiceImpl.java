@@ -37,7 +37,8 @@ public class ProductServiceImpl implements ProductService{
        Product product1 = productRepository.findById(product.getProductId()).get();
        product1.setProductDesc(product.getProductDesc());
        product1.setProductName(product.getProductName());
-       product1.setProductSubCategory(subCategoryRepository.findById(product.getProductSubCategory().getSubcategoryId()).get());
+       product1.setProductPrice(product.getProductPrice());
+       productRepository.save(product1);
        return product;
     }
     public void deleteByproductSubCategory(Long Id){
