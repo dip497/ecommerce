@@ -56,6 +56,7 @@ public class AdminSubCategoryController {
         logger.info("SubcategorySto->{}",subcategory);
 
         subcategory.setCategory(categoryService.findCategoryById(Id));
+        subCategoryService.createSubCategory(subcategory);
 
 //        boolean a =subCategoryService.createSubCategory(subcategory);
 //        System.out.println(a);
