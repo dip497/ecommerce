@@ -56,14 +56,7 @@ public class AdminProductController {
     {
         logger.info("ProductDto ->{}",productDto);
 
-//        subcategory.setCategory(categoryService.findCategoryById(Id));
 
-//        boolean a =subCategoryService.createSubCategory(subcategory);
-//        System.out.println(a);
-//        logger.info("SubCategory ->{}",subcategory);
-//        logger.info("Category -> {}",category);
-//        System.out.println(Id);
-//        logger.info("category ->{}",category);
         return "redirect:/admin/Category";
 
     }
@@ -78,6 +71,7 @@ public class AdminProductController {
     @RequestMapping("admin/Product/updated/{id}")
     public String updatedProduct(@PathVariable("id") Long Id,@ModelAttribute ProductDto productDto){
         productDto.setProductId(Id);
+        productService.updateProduct(productDto);
         return "redirect:/admin/Category";
     }
 
