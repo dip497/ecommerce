@@ -9,19 +9,20 @@
 </head>
 <body>
 <div class="container">
-    <h1>Category Management </h1>
+    <h1>SubCategory Management </h1>
     <hr>
-    <h2>Update Category</h2>
+    <h2>Update SubCategory</h2>
 
-    <form action="#" th:action="@{/admin/Category/updated}" th:object="${updateCategory}"
-          >
+    <form action="#" th:action="@{/admin/SubCategory/updated/{id}(id=${updateSubCategory.getSubcategoryId()})}" th:object="${updateSubCategory}"
+    method="post">
 
-         Add hidden form field to handle update
-        <input type="hidden" th:field="*{categoryId}" />
 
-        <input type="text" th:field="*{categoryName}" class="form-control mb-4 col-4">
+        <input type="hidden" th:field="*{subcategoryId}" />
+<!--        <input type="hidden" th:field="*{category}"/>-->
 
-        <button type="submit"  > Update Category </button>
+        <input type="text" th:field="*{subcategoryName}" class="form-control mb-4 col-4">
+
+        <button type="submit"  > Update SubCategory </button>
     </form>
 
     <hr>

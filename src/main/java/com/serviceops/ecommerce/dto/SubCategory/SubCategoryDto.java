@@ -34,6 +34,7 @@ public class SubCategoryDto {
     public Long getSubcategoryId() {
         return subcategoryId;
     }
+    public void setSubcategoryId(Long Id){this.subcategoryId=Id;}
     public String getSubcategoryName() {
         return subcategoryName;
     }

@@ -32,7 +32,16 @@ class ProductRepositoryTests {
 	{
 		System.out.println(productService.removeProduct(5L));
 	}
-
+	@Test
+	void getSubcategory()
+	{
+		ProductDto productById = productService.findProductById(4L);
+		System.out.println(productById );
+//		SubCategoryDto productSubCategory = productService.findProductSubCategory(5L);
+//		if(productSubCategory.getCategory()==null) System.out.println("23e2");;
+//		System.out.println(productSubCategory.getSubcategoryId());
+//		logger.info("produc->{}",productSubCategory);
+	}
 
 
 
