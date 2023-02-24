@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,16 +7,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/}">Ecommerce</a>
+            <a class="navbar-brand" href="#">Ecommerce website</a>
         </div>
         <ul class="nav navbar-nav">
+
             <li><a th:href="@{/user/home}">Home</a></li>
             <li><a th:href="@{/user/cart}">Cart</a></li>
             <li><a th:href="@{/user/allOrder}">Order</a></li>
             <li><a th:href="@{/user/Categories}">Categories</a></li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Profile
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+
+                    <li><a th:href="@{/user/update}">Update Profile</a></li>
+                    <li><a th:href="@{/user/changePassword}">Change Password</a></li>
+                    <li><a th:href="@{/user/allReview}">My Reviews</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>

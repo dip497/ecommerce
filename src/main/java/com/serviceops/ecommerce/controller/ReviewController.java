@@ -46,9 +46,6 @@ public class ReviewController {
 
     @RequestMapping("/user/allorder/addreview/save/{id}")
     public String viewAddUserSave(@PathVariable("id") Long  id ,@ModelAttribute ReviewDto reviewDto, Principal principal){
-//        System.out.println(reviewDto);
-
-//
         reviewDto.setProduct(productService.findProductById(id));
         reviewDto.setUser(userService.getUser(principal.getName()));
         System.out.println("in save");
@@ -56,6 +53,14 @@ public class ReviewController {
 
         reviewService.createReview(reviewDto);
         return "redirect:/user/allOrder";
+    }
+
+    @GetMapping("/user/allReview")
+    public ModelAndView viewUserAllReview(Principal principal){
+        ModelAndView mv = new ModelAndView("/user/showReview");
+        mv.addObject("reviews",reviewService.userReview(userService.getUser(principal.getName())));
+        return mv;
+
     }
 
 }

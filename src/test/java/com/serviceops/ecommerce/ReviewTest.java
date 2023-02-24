@@ -2,6 +2,8 @@ package com.serviceops.ecommerce;
 
 import com.serviceops.ecommerce.dto.ReviewDto;
 import com.serviceops.ecommerce.entities.Ratings;
+import com.serviceops.ecommerce.repository.ReviewRepository;
+import com.serviceops.ecommerce.repository.UserRepository;
 import com.serviceops.ecommerce.service.ProductService;
 import com.serviceops.ecommerce.service.ReviewService;
 import com.serviceops.ecommerce.service.UserService;
@@ -20,6 +22,12 @@ public class ReviewTest {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    ReviewRepository reviewRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     @Test
     void contextLoads() {
         ReviewDto reviewDto = new ReviewDto();
@@ -35,6 +43,14 @@ public class ReviewTest {
     void findReviewByProduct() {
         System.out.println(reviewService.productReview(1L));
 
+    }
+    @Test
+    void testReviewRepository(){
+        System.out.println(reviewRepository.findAllByUser(userRepository.findByUserEmail("prakhar@gmail.com")));
+    }
 
+    @Test
+    void testReviewRepositoryDelete(){
+        reviewRepository.deleteById(5L);
     }
 }

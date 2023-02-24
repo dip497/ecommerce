@@ -52,6 +52,12 @@ public class ReviewServiceImpl implements ReviewService {
         return reivews.stream().map(this::entityToDto).toList();
     }
 
+    @Override
+    public List<ReviewDto> userReview(UserDto userDto) {
+        List<Review> reviews = reviewRepository.findAllByUser(userRepository.findByUserEmail(userDto.getUserEmail()));
+        return reviews.stream().map(this::entityToDto).toList();
+    }
+
     private ReviewDto entityToDto(Review review){
         ProductDto product = productService.findProductById(review.getProduct().getProductId());
         UserDto user = userService.getUser(review.getUser().getUserEmail());

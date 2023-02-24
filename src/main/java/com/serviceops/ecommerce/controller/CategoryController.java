@@ -25,7 +25,7 @@ public class CategoryController {
     {
 
         model.addAttribute("allcategories",categoryService.getAllCategroies());
-        return "categories";
+        return "/user/categories";
     }
     @RequestMapping("/user/SubCategories/{id}")
     public String  getSubCategory(@PathVariable("id") Long Id, Model model)

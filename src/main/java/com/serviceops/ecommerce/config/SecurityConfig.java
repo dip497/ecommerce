@@ -1,12 +1,9 @@
 package com.serviceops.ecommerce.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,8 +14,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Order(1)
 public class SecurityConfig {
 
-    @Autowired
-    CustomSuccessHandler customSuccessHandler;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder();
@@ -26,7 +21,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/").permitAll()
@@ -39,7 +34,7 @@ public class SecurityConfig {
                                 .usernameParameter("email")
                                 .defaultSuccessUrl("/home")
                                 .permitAll()
-                                .successHandler(customSuccessHandler)
+                                .successHandler(new CustomSuccessHandler())
                 ).logout(
                 logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")

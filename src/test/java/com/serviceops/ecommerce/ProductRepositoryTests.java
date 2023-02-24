@@ -43,6 +43,12 @@ class ProductRepositoryTests {
 //		logger.info("produc->{}",productSubCategory);
 	}
 
+	@Test
+	void deleteProductWithReview(){
+		productService.removeProduct(9L);
+
+	}
+
 
 
 }

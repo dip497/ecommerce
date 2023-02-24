@@ -21,6 +21,6 @@ public class ProductController {
     public String getAllProducts(@PathVariable("id") Long Id, Model model) {
         model.addAttribute("product", productService.findProductById(Id));
         model.addAttribute("reviews",reviewService.productReview(Id));
-        return "insideproduct";
+        return "/user/insideproduct";
     }
 }
