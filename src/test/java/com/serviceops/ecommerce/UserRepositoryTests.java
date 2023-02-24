@@ -1,10 +1,12 @@
 package com.serviceops.ecommerce;
 
 import com.serviceops.ecommerce.dto.user.UserDto;
+import com.serviceops.ecommerce.dto.user.UserPasswordDto;
 import com.serviceops.ecommerce.entities.Role;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.UserRepository;
 import com.serviceops.ecommerce.service.UserService;
+import com.serviceops.ecommerce.utils.PasswordHelper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +33,19 @@ class UserRepositoryTests {
         UserDto user =new UserDto();
         user.setUserFirstName("user");
         user.setUserLastName("service");
-        user.setUserEmail("dipendra@gmail.com");
+        user.setUserEmail("passwordC@gmail.com");
         user.setUserPassword("test");
-        user.setUserRole(Role.ADMIN);
+        user.setUserRole(Role.CUSTOMER);
 
         logger.info("user -> {}",   userService.signUp(user));
 
+    }
+
+    @Test
+    void updatePassword(){
+        UserPasswordDto userPasswordDto = new UserPasswordDto("passwordC@gmail.com","test","1234");
+        System.out.println(PasswordHelper.matchPassword(userPasswordDto.getOldPassword(),userService.getUser(userPasswordDto.getEmail()).getUserPassword()));
+        userService.updatePassword(userPasswordDto);
     }
 
 }

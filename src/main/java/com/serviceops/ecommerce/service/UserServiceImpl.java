@@ -1,6 +1,7 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.user.UserDto;
+import com.serviceops.ecommerce.dto.user.UserPasswordDto;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.exceptions.CustomException;
 import com.serviceops.ecommerce.repository.UserRepository;
@@ -34,6 +35,9 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(e.getMessage());
         }
     }
+
+
+
 
     @Override
     public UserDto getUser(String email) {
@@ -77,6 +81,24 @@ public class UserServiceImpl implements UserService {
             throw  new CustomException("user not found");
         }
         return true;
+    }
+
+    @Override
+    public boolean updatePassword(UserPasswordDto userPasswordDto) {
+        String newEncyptedPassowrd = PasswordHelper.hashPassword(userPasswordDto.getNewPassword());
+        User user = userRepository.findByUserEmail(userPasswordDto.getEmail());
+
+
+
+        if(PasswordHelper.matchPassword(userPasswordDto.getOldPassword(),user.getUserPassword())){
+            System.out.println("password match");
+            user.setUserPassword(newEncyptedPassowrd);
+
+            userRepository.save(user);
+          //  userRepository.updatePassword(newEncyptedPassowrd, userPasswordDto.getEmail());
+            return true;
+        }
+        return false;
     }
 
     private UserDto entityToDto(User user){
