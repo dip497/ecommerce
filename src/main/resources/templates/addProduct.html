@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>SubCategory Management </title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>SubCategory Management</h1>
+    <
+    <h2>Save Category</h2>
+<!--    <form action="#" th:action="@{/admin/SubCategory/save/{id}(id=${subcategory.getCategory().getCategoryId()})}"  th:object="${subcategory}" method="POST">-->
+
+    <form action="#" th:action="@{/admin/Product/save/{id}(id=${productDto.getProductSubCategory().getSubcategoryId()})}"  th:object="${productDto}" method="POST">
+        <input type="text" name="name" th:field="*{productName}"/>
+        <input type="text" name="name" th:field="*{productDesc}"/>
+        <input type="text" name="name" th:field="*{productPrice}"/>
+
+
+        <button type="submit" class="btn btn-info col-2">Save
+            Product</button>
+    </form>
+
+    <hr>
+
+    <!--    <a th:href="@{/admin/Category}"> Back to Category List</a>-->
+</div>
+</body>
+</html>
+
+
+
+
+

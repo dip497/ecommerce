@@ -8,18 +8,23 @@ import com.serviceops.ecommerce.exceptions.CategoryExist;
 import com.serviceops.ecommerce.repository.CategoryRepository;
 import com.serviceops.ecommerce.utils.Helper;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     CategoryRepository categoryRepository;
@@ -58,7 +63,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto updateCategoryById(CategoryDto categoryDto) {
-        Category category = categoryRepository.findById(categoryDto.getCategoryId()).get();
+        Category category= categoryRepository.findById(categoryDto.getCategoryId()).get();
+        category.setCategoryName(categoryDto.getCategoryName());
         categoryRepository.save(category);
         return categoryDto;
 
@@ -78,4 +84,5 @@ public class CategoryServiceImpl implements CategoryService {
     {
         return new SubCategoryDto(subCategory.getSubcategoryId(), subCategory.getSubcategoryName(),this.convert(subCategory.getCategory()));
     }
+
 }

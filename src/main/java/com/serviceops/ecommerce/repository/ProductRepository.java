@@ -15,5 +15,7 @@ public SubCategory findByproductSubCategory(Long Id);
 @Modifying
 @Query(value="DELETE FROM product WHERE product_sub_category_subcategory_id = ?1", nativeQuery=true)
 public void deleteByproductSubCategory(Long Id);
+@Modifying @Query(value="DELETE FROM product WHERE product_id = ?1", nativeQuery=true)
+public void deleteById(Long Id);
 
 }
