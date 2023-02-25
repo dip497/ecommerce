@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,7 +57,7 @@
             <td th:text="${product.getProductPrice()}+Rs"></td>
         </tr>
         </tbody>
-        <a th:href="@{/user/addToCart/save/{id}(id=${product.getProductId()})}"class="btn btn-danger" >AddtoCart </a>
+        <a sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/user/addToCart/save/{id}(id=${product.getProductId()})}"class="btn btn-danger" >AddtoCart </a>
     </table>
     <h3>Review List</h3>
     <table style="width:80%" border="1"
@@ -77,6 +78,7 @@
 
 </div>
 </body>
+</html>
 
 
 

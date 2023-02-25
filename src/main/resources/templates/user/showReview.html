@@ -47,12 +47,14 @@
         <tr>
             <th>rating</th>
             <th>description </th>
+            <th>product name</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="review:${reviews}">
             <td th:text="${review.ratings}"></td>
             <td th:text="${review.description}"></td>
+            <td th:text="${review.product.getProductName()}"></td>
         </tr>
 
         </tbody>

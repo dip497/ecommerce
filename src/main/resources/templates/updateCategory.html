@@ -13,10 +13,9 @@
     <hr>
     <h2>Update Category</h2>
 
-    <form action="#" th:action="@{/admin/Category/updated}" th:object="${updateCategory}"
-          >
+    <form action="#" th:action="@{/admin/Category/updated}" th:object="${updateCategory}">
 
-         Add hidden form field to handle update
+
         <input type="hidden" th:field="*{categoryId}" />
 
         <input type="text" th:field="*{categoryName}" class="form-control mb-4 col-4">

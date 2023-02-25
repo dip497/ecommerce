@@ -12,7 +12,7 @@
 <div class="container">
     <h1>SubCategory Management</h1>
     <hr>
-    <h2>Save Category</h2>
+    <h2>Save SubCategory</h2>
 
     <form action="#" th:action="@{/admin/SubCategory/save/{id}(id=${subcategory.getCategory().getCategoryId()})}"  th:object="${subcategory}" method="POST">
         <input type="text" name="name" th:field="*{subcategoryName}"/>
@@ -24,7 +24,6 @@
 
     <hr>
 
-    <!--    <a th:href="@{/admin/Category}"> Back to Category List</a>-->
 </div>
 </body>
 </html>

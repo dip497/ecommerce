@@ -69,10 +69,7 @@ public class SubCategoryServicempl implements SubCategoryService{
         subCategory.setSubcategoryName(subCategoryDto.getSubcategoryName());
         subCategoryRepository.save(subCategory);
         return subCategoryDto;
-//        SubCategory subCategory = subCategoryRepository.findById(subCategoryDto.getSubcategoryId()).get();
-//        subCategory.setSubcategoryName(subCategoryDto.getSubcategoryName());
-//        subCategory.setCategory(categoryRepository.findById(subCategoryDto.getCategory().getCategoryId()).get());
-//        return subCategoryDto;
+//
 
     }
     private SubCategoryDto convertsub(SubCategory subCategory)

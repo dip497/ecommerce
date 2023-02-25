@@ -26,7 +26,7 @@ public class AdminProductController {
     @RequestMapping("/admin/Product/{id}")
     public String getAllProducts(@PathVariable("id") Long Id, Model model){
         model.addAttribute("product",productService.findProductById(Id));
-        return "adminproduct";
+        return "/user/insideproduct";
     }
     @GetMapping("/admin/Product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long Id)
@@ -48,15 +48,14 @@ public class AdminProductController {
         productDto.setProductDesc("ejbfw");
         logger.info("productDto -> {}",productDto);
 
-        mav.addObject("subcategory",productDto);
+        mav.addObject("productDto",productDto);
         return mav;
     }
     @RequestMapping("/admin/Product/save/{id}")
     public String getFormDetails(@PathVariable("id") Long Id,@ModelAttribute ProductDto productDto)
     {
-        logger.info("ProductDto ->{}",productDto);
-
-
+        productDto.setProductSubCategory(subCategoryService.findSubCategoryById(Id));
+        productService.createProduct(productDto);
         return "redirect:/admin/Category";
 
     }

@@ -10,15 +10,14 @@
 </head>
 <body>
 <div class="container">
-    <h1>SubCategory Management</h1>
-    <
-    <h2>Save Category</h2>
-<!--    <form action="#" th:action="@{/admin/SubCategory/save/{id}(id=${subcategory.getCategory().getCategoryId()})}"  th:object="${subcategory}" method="POST">-->
+    <h1>Product Management</h1>
+
+    <h2>Product Category</h2>
 
     <form action="#" th:action="@{/admin/Product/save/{id}(id=${productDto.getProductSubCategory().getSubcategoryId()})}"  th:object="${productDto}" method="POST">
         <input type="text" name="name" th:field="*{productName}"/>
         <input type="text" name="name" th:field="*{productDesc}"/>
-        <input type="text" name="name" th:field="*{productPrice}"/>
+        <input type="number" name="name" th:field="*{productPrice}"/>
 
 
         <button type="submit" class="btn btn-info col-2">Save
@@ -27,7 +26,6 @@
 
     <hr>
 
-    <!--    <a th:href="@{/admin/Category}"> Back to Category List</a>-->
 </div>
 </body>
 </html>

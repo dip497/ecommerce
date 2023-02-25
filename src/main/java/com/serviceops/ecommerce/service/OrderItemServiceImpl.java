@@ -1,9 +1,7 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.user.UserDto;
-import com.serviceops.ecommerce.entities.Order;
 import com.serviceops.ecommerce.entities.OrderItem;
-import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.OrderItemRepository;
 import com.serviceops.ecommerce.repository.OrderRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
