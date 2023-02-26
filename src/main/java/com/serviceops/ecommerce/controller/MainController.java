@@ -5,10 +5,13 @@ import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.service.ProductService;
 import com.serviceops.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
 
 @Controller
 public class MainController {
@@ -60,7 +63,8 @@ public class MainController {
     }
 
     @RequestMapping("/admin/users/adduser/save")
-    public String viewAddUserSave(@ModelAttribute UserDto userDto){
+    public String viewAddUserSave(@ModelAttribute UserDto userDto,Principal principal){
+        userDto.setCreatedBy(principal.getName());
         userService.signUp(userDto);
         return ADMIN_USERS_URL;
     }
@@ -69,6 +73,7 @@ public class MainController {
     public ModelAndView saveStudent(@ModelAttribute UserDto userDto){
 
         ModelAndView mav = new ModelAndView("registerMessage");
+        userDto.setCreatedBy(userDto.getUserEmail());
         boolean isSignUp = userService.signUp(userDto);
         if(isSignUp){
             mav.addObject("message","saved");
@@ -102,7 +107,8 @@ public class MainController {
     }
 
     @PostMapping("/admin/users/updateuser/save")
-    public String saveUpdateUser(@ModelAttribute UserDto userDto){
+    public String saveUpdateUser(@ModelAttribute UserDto userDto,Principal principal){
+        userDto.setUpdatedBy(principal.getName());
         userService.updateUser(userDto);
         return ADMIN_USERS_URL;
     }

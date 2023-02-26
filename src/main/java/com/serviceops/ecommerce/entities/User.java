@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "user")
-public class User {
+public class User extends Audit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;

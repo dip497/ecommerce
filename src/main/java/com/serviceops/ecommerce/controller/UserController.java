@@ -5,6 +5,7 @@ import com.serviceops.ecommerce.dto.user.UserPasswordDto;
 import com.serviceops.ecommerce.service.UserService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,16 +30,17 @@ public class UserController {
 
     @PostMapping("/user/update/save")
    public String updateUserSave(@ModelAttribute UserDto userDto){
+        userDto.setUpdatedBy(userDto.getUserEmail());
         userService.updateUser(userDto);
         return "redirect:/user/home";
 
     }
 
     @GetMapping("/user/changePassword")
-    public ModelAndView viewUpdatePassword(Principal principal){
+    public ModelAndView viewUpdatePassword(Authentication authentication){
         ModelAndView mv = new ModelAndView("user/updateUserPassword");
         UserPasswordDto dto = new UserPasswordDto();
-        dto.setEmail(principal.getName());
+        dto.setEmail(authentication.getName());
         mv.addObject("passDto",dto);
         return mv;
 

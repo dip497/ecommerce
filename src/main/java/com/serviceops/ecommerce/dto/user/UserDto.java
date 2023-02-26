@@ -11,6 +11,10 @@ public class UserDto   {
     private String userPassword;
     private  Role userRole;
 
+    private String updatedBy;
+
+    private String createdBy;
+
     public UserDto() {
     }
 
@@ -69,6 +73,22 @@ public class UserDto   {
 
     public void setUserRole(Role userRole) {
         this.userRole = userRole;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override

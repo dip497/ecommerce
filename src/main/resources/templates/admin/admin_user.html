@@ -22,6 +22,8 @@
       <th>First Name</th>
       <th>Last Name</th>
       <th>Role</th>
+      <th>Created by</th>
+      <th>Update by</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -32,6 +34,8 @@
       <td th:text="${user.getUserFirstName()}"/>
       <td th:text="${user.getUserLastName()}"/>
       <td th:text="${user.getUserRole()}"/>
+      <td th:text="${user.getCreatedBy()}"/>
+      <td th:text="${user.getUpdatedBy()}"/>
       <td> <a th:href="@{/admin/users/updateuser/{email}(email=${user.getUserEmail()})}"
               class="btn btn-primary">Update</a>
         <a  th:href="@{/admin/users/deleteuser(id=${user.getUserId()})}"  class="btn btn-danger">Delete</a>

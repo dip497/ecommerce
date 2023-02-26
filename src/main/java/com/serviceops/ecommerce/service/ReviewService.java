@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReviewService {
 
-    public boolean createReview(ReviewDto Review);
+     boolean createReview(ReviewDto Review);
 
      List<ReviewDto> productReview(Long productId);
 
