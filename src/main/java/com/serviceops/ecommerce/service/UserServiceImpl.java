@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce.service;
 
+import com.serviceops.ecommerce.config.CustomUserDetails;
 import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.dto.user.UserPasswordDto;
 import com.serviceops.ecommerce.entities.User;
@@ -10,6 +11,9 @@ import com.serviceops.ecommerce.utils.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
@@ -37,7 +41,7 @@ public class UserServiceImpl implements UserService {
         user.setCreatedBy(userDto.getCreatedBy());
         try {
             userRepository.save(user);
-            logger.info("User saved successfully",userDto.getUserEmail() + " by " + userDto.getCreatedBy());
+            logger.info("User saved successfully ->{}",userDto.getUserEmail() + " by " + userDto.getCreatedBy());
             return true;
         } catch (Exception e) {
             logger.error("User failed to save");
@@ -51,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUser(String email) {
         User user = userRepository.findByUserEmail(email);
-        logger.info("User found");
+        logger.info("User found->{}", email);
 
         if (Helper.isNull(user)) {
             logger.error("User not found");
@@ -78,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
 
          userRepository.deleteById(id);
-         logger.info("User deleted", id);
+         logger.info("User deleted ->{}", id);
     }
 
     @Override
@@ -91,7 +95,7 @@ public class UserServiceImpl implements UserService {
             user.setUserRole(userDto.getUserRole());
             user.setUpdatedBy(userDto.getUpdatedBy());
             userRepository.save(user);
-            logger.info("User updated", userDto.getUserId());
+            logger.info("User updated ->{}", userDto.getUserId());
         }else{
             logger.error("user not found");
 
@@ -107,10 +111,9 @@ public class UserServiceImpl implements UserService {
 
 
         if(PasswordHelper.matchPassword(userPasswordDto.getOldPassword(),user.getUserPassword())){
-            System.out.println("password match");
             user.setUserPassword(newEncyptedPassowrd);
             userRepository.save(user);
-            logger.info("password updated of ", userPasswordDto.getEmail());
+            logger.info("password updated of ->{} ", userPasswordDto.getEmail());
             return true;
         }
         logger.error("password failed to match");
@@ -121,10 +124,19 @@ public class UserServiceImpl implements UserService {
         UserDto dto =  new UserDto(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserEmail(), user.getUserPassword(), user.getUserRole());
         dto.setUpdatedBy(user.getUpdatedBy());
         dto.setCreatedBy(user.getCreatedBy());
-        logger.info("entity to dto converted");
+        logger.debug("entity to dto converted");
         return dto;
     }
 
 
-
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUserEmail(username);
+        if (user == null) {
+            logger.error("User not founds ->{}",username);
+            throw  new UsernameNotFoundException("No user found for the given email");
+        }
+        logger.info("User Login ->{}",username);
+        return new CustomUserDetails(user);
+    }
 }
