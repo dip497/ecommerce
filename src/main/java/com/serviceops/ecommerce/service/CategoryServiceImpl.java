@@ -1,9 +1,11 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
-import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
+
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.entities.Category;
-import com.serviceops.ecommerce.entities.SubCategory;
+
+import com.serviceops.ecommerce.entities.Product;
 import com.serviceops.ecommerce.exceptions.CategoryExist;
 import com.serviceops.ecommerce.repository.CategoryRepository;
 import com.serviceops.ecommerce.utils.Helper;
@@ -35,7 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
             throw new CategoryExist("Category Already Exist");
         }
         else{
-            categoryRepository.save(new Category(categoryDto.getCategoryName()));
+            Category category = categoryRepository.findBycategoryName(categoryDto.getParent_categoryname());
+            categoryRepository.save(new Category(categoryDto.getCategoryName(),
+                    categoryRepository.findBycategoryName(categoryDto.getParent_categoryname())));
             return true;
         }
     }
@@ -44,8 +48,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getAllCategroies() {
         List<Category> category = categoryRepository.findAll();
         return category.stream().map(category1 -> convert(category1)).collect(Collectors.toList());
-
     }
+
 
     @Override
     public void removeCategoryById(Long Id) {
@@ -54,10 +58,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto findCategoryById(Long Id) {
-        Optional<Category> category = categoryRepository.findById(Id);
-        CategoryDto categoryDto = new CategoryDto(category.get().getCategoryId(),category.get().getCategoryName());
-        categoryDto.setSubCategoriesSet(category.get().getSubCategorySet().stream().map(subCategory -> convertsub(subCategory)).collect(Collectors.toSet()));
-        System.out.println("serive dtp "+ categoryDto);
+        Category category = categoryRepository.findById(Id).get();
+        CategoryDto categoryDto = convert(category);
+        categoryDto.setProductDtoList(category.getProducts().stream().map(product -> con(product)).collect(Collectors.toList()));
         return categoryDto;
     }
 
@@ -71,18 +74,22 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<SubCategoryDto> getAllSubCategoryById(Long Id) {
+    public List<CategoryDto> getAllSubCategoryById(Long Id) {
         Category category = categoryRepository.findById(Id).get();
-        Set<SubCategory> subCategorySet = category.getSubCategorySet();
-        return subCategorySet.stream().map(subCategory1 -> convertsub(subCategory1)).collect(Collectors.toList());
+        List<Category> subCategorySet = category.getSubcategories();
+        return subCategorySet.stream().map(subCategory1 -> convert(subCategory1)).collect(Collectors.toList());
+    }
+    @Override
+    public List<CategoryDto> getSubcategories(String categoryName){
+
+        return categoryRepository.findBycategoryName(categoryName).getSubcategories().stream().map(subcategory ->convert(subcategory)).collect(Collectors.toList());
     }
     private CategoryDto convert(Category category)
     {
         return new CategoryDto(category.getCategoryId(),category.getCategoryName());
     }
-    private SubCategoryDto convertsub(SubCategory subCategory)
-    {
-        return new SubCategoryDto(subCategory.getSubcategoryId(), subCategory.getSubcategoryName(),this.convert(subCategory.getCategory()));
+    private ProductDto con(Product product){
+        return new ProductDto(product.getProductId(), product.getProductName(), product.getProductDesc(), product.getProductPrice(),convert(product.getProductCategory()));
     }
 
 }

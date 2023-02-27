@@ -12,7 +12,7 @@
 <div class="container my-2" align="center">
 
     <h3>SubCategory List</h3>
-    <a th:href="@{/admin/addSubcategory/{id}(id=${subcategories[0].getCategory().getCategoryId()})}" class="btn btn-primary btn-sm mb-3" >Add SubCategory</a>
+<!--    <a th:href="@{/admin/addSubcategory/{id}(id=${subcategories[0].getCategory().getCategoryId()})}" class="btn btn-primary btn-sm mb-3" >Add SubCategory</a>-->
     <table style="width:80%" border="1"
            class = "table table-striped table-responsive-md">
         <thead>
@@ -23,11 +23,11 @@
         </thead>
         <tbody>
         <tr th:each="count : ${subcategories}">
-            <td> <a th:href="@{/admin/AllProducts/{id}(id=${count.getSubcategoryId()})}" th:text="${count.getSubcategoryName()}">
+            <td> <a th:href="@{/admin/AllProducts/{id}(id=${count.getCategoryId()})}" th:text="${count.getCategoryName()}">
             </a><td>
-            <a th:href="@{/admin/SubCategory/Update/{id}(id=${count.getSubcategoryId()})}"
+            <a th:href="@{/admin/SubCategory/Update/{id}(id=${count.getCategoryId()})}"
                class="btn btn-primary">Update</a>
-            <a  th:href="@{/admin/SubCategory/delete/{id}(id=${count.getSubcategoryId()})}"class="btn btn-danger">Delete</a>
+            <a  th:href="@{/admin/SubCategory/delete/{id}(id=${count.getCategoryId()})}"class="btn btn-danger">Delete</a>
         </td>
         </tr>
 

@@ -1,9 +1,8 @@
 package com.serviceops.ecommerce.controller;
 
 import com.serviceops.ecommerce.dto.Product.ProductDto;
-import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
+import com.serviceops.ecommerce.service.CategoryService;
 import com.serviceops.ecommerce.service.ProductService;
-import com.serviceops.ecommerce.service.SubCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +14,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class AdminProductController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private SubCategoryService subCategoryService;
+    private CategoryService CategoryService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("/admin/Product/{id}")
-    public String getAllProducts(@PathVariable("id") Long Id, Model model){
-        model.addAttribute("product",productService.findProductById(Id));
-        return "/user/insideproduct";
+    @RequestMapping("/admin/AllProducts/{id}")
+    public String getAllProducts(@PathVariable("id") Long Id, Model model)
+    {
+        System.out.println(Id);
+        List<ProductDto> productSet = CategoryService.findCategoryById(Id).getProductDtoList();
+
+        model.addAttribute("products",productSet);
+        return "adminproducts";
     }
+
+
+//    @RequestMapping("/admin/Product/{id}")
+//    public String getAllProducts(@PathVariable("id") Long Id, Model model){
+//        model.addAttribute("product",productService.findProductById(Id));
+//        return "/user/insideproduct";
+//    }
     @GetMapping("/admin/Product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long Id)
     {
-        Long id = productService.findProductById(Id).getProductSubCategory().getSubcategoryId();
         boolean isDeleted = productService.removeProduct(Id);
         System.out.println(isDeleted);
         return "redirect:/admin/Category";
@@ -41,7 +52,7 @@ public class AdminProductController {
     {
         ModelAndView mav = new ModelAndView("addProduct");
         ProductDto productDto = new ProductDto();
-        productDto.setProductSubCategory(productService.findProductSubCategory(Id));
+        productDto.setProductCategory(productService.findProductCategory(Id));
         productDto.setProductId(0L);
         productDto.setProductName("yudewuy");
         productDto.setProductPrice(2873);
@@ -54,7 +65,7 @@ public class AdminProductController {
     @RequestMapping("/admin/Product/save/{id}")
     public String getFormDetails(@PathVariable("id") Long Id,@ModelAttribute ProductDto productDto)
     {
-        productDto.setProductSubCategory(subCategoryService.findSubCategoryById(Id));
+        productDto.setProductCategory(CategoryService.findCategoryById(Id));
         productService.createProduct(productDto);
         return "redirect:/admin/Category";
 

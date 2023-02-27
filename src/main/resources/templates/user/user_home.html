@@ -54,7 +54,7 @@
         </thead>
         <tbody>
         <tr th:each="count : ${products}">
-            <td><a th:href="@{/user/Product/{id}(id=${count.getProductId()})}" th:text="${count.getProductName()}"></a></td>
+            <td><a th:href="@{/user/aboutProducts/{id}(id=${count.getProductId()})}" th:text="${count.getProductName()}"></a></td>
             <td th:text="${count.getProductPrice()}+Rs"></td>
         </tr>
 
@@ -63,30 +63,3 @@
 </div>
 </body>
 </html>
-
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2> Welcome user-->
-<!--</h2>-->
-<!--<form th:action="@{/logout}" method="post" >-->
-<!--    <input type="submit" value="logout" />-->
-<!--</form>-->
-<!--<form th:action="@{/user/Categories}"  >-->
-<!--    <input type="submit" value="Show all Category" />-->
-<!--</form>-->
-<!--<form th:action="@{/user/cart}"  >-->
-<!--    <input type="submit" value="Show cart" />-->
-<!--</form>-->
-<!--<form th:action="@{/user/allOrder}"  >-->
-<!--    <input type="submit" value="Show order" />-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->

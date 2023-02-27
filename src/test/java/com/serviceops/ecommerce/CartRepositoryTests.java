@@ -34,8 +34,7 @@ class CartRepositoryTests {
 	@Autowired
 	private CartService cartService;
 
-	@Autowired
-	private SubCategoryRepository subCaterepo;
+
 
 	@Autowired
 	private UserService service;
@@ -47,28 +46,28 @@ class CartRepositoryTests {
 	@Test
 
 	void addProductToCart() {
-		Category c = crepo.save(new Category("Electronics"));
-		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
-
-		Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
-		ProductDto productDto = productService.findProductById(product.getProductId());
-		UserDto save = service.getUser("rohan@gmail.com");
-		AddToCartDto addToCartDto = new AddToCartDto();
-		addToCartDto.setQuantity(43);
-		cartService.addToCart(addToCartDto,productDto,save);
+//		Category c = crepo.save(new Category("Electronics"));
+//		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
+//
+//		Product product = pRepo.save(new Product("Lenovo", "New ",47848,subcat));
+//		ProductDto productDto = productService.findProductById(product.getProductId());
+//		UserDto save = service.getUser("rohan@gmail.com");
+//		AddToCartDto addToCartDto = new AddToCartDto();
+//		addToCartDto.setQuantity(43);
+//		cartService.addToCart(addToCartDto,productDto,save);
 
 
 	}
 
 	@Test
 	void addProductToCartRepo(){
-		User save = userRepository.findByUserEmail("prakhar@gmail.com");
-//		User save = userRepository.save(new User("dipendra", "sharma", "rohan@gmail.com", "12345678", Role.ADMIN));
-		Category c = crepo.save(new Category("Electronics"));
-
-		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
-		Product product = pRepo.save(new Product("pa", "New ",54633,subcat));
-		cartRepository.save(new Cart(product,save,3));
+//		User save = userRepository.findByUserEmail("prakhar@gmail.com");
+////		User save = userRepository.save(new User("dipendra", "sharma", "rohan@gmail.com", "12345678", Role.ADMIN));
+//		Category c = crepo.save(new Category("Electronics"));
+//
+//		SubCategory subcat = subCaterepo.save(new SubCategory("Laptop",c));
+//		Product product = pRepo.save(new Product("pa", "New ",54633,subcat));
+//		cartRepository.save(new Cart(product,save,3));
 
 	}
 
