@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Entity
-public class Category{
+public class Category extends Audit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
