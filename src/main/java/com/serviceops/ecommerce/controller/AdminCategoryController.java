@@ -1,8 +1,7 @@
 package com.serviceops.ecommerce.controller;
 
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
-import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
-import com.serviceops.ecommerce.entities.Category;
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Set;
+import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -20,7 +20,7 @@ public class AdminCategoryController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    CategoryService CategoryService;
+    private CategoryService CategoryService;
 
     @GetMapping("/admin/Category")
     public String getCategories(Model model)
@@ -30,6 +30,16 @@ public class AdminCategoryController {
 
         return "adminCategories";
     }
+    @RequestMapping("/admin/Category/search")
+    public ModelAndView getCategory( @RequestParam(value = "Category", required = true) String category){
+        ModelAndView mav = new ModelAndView("adminCategories");
+        List<CategoryDto> subcategories = CategoryService.getSubcategories(category);
+        for(CategoryDto i : subcategories) System.out.println(i.getCategoryName());
+        mav.addObject("categories",subcategories    );
+        return mav;
+
+    }
+
     @GetMapping("/admin/Category/delete/{id}")
     public String deleteCategory(@PathVariable("id") Long Id)
     {
@@ -42,13 +52,14 @@ public class AdminCategoryController {
     {
         ModelAndView mav = new ModelAndView("addcategory");
         CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setParent_categoryname("Electronics");
         mav.addObject("category",categoryDto);
         return mav;
     }
     @RequestMapping("/admin/Category/save")
-    public String getFormDetails(@ModelAttribute CategoryDto category)
+    public String getFormDetails(@ModelAttribute CategoryDto category, Principal principal)
     {
-        logger.info("Category ->{}",category);
+
         CategoryService.createCategory(category);
         return "redirect:/admin/Category";
 
@@ -68,15 +79,7 @@ public class AdminCategoryController {
         CategoryService.updateCategoryById(categoryDto);
         return "redirect:/admin/Category";
     }
-    @RequestMapping("/admin/SubCategories/{id}")
-    public String getSubCategory(@PathVariable("id") Long Id, Model model)
-    {
 
-        Set<SubCategoryDto> set = CategoryService.findCategoryById(Id).getSubCategorySet();
-
-        model.addAttribute("subcategories",set);
-        return "adminSubCategories";
-    }
 
 
 }

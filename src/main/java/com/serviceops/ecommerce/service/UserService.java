@@ -18,5 +18,4 @@ public interface UserService {
 
     boolean updatePassword(UserPasswordDto userPasswordDto);
 
-
 }

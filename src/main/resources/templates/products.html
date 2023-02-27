@@ -51,7 +51,7 @@
         </thead>
         <tbody>
         <tr th:each="count : ${products}">
-            <td><a th:href="@{/user/Product/{id}(id=${count.getProductId()})}" th:text="${count.getProductName()}"></a></td>
+            <td><a th:href="@{/user/aboutProducts/{id}(id=${count.getProductId()})}" th:text="${count.getProductName()}"></a></td>
             <td th:text="${count.getProductPrice()}+Rs"></td>
         </tr>
 

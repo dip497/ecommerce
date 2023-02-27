@@ -1,7 +1,7 @@
 package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
-import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
+
 import com.serviceops.ecommerce.entities.Category;
 
 
@@ -15,7 +15,8 @@ public interface CategoryService {
     public void removeCategoryById(Long Id);
     public CategoryDto findCategoryById(Long Id);
     public CategoryDto updateCategoryById(CategoryDto CategoryDto);
-    public List<SubCategoryDto> getAllSubCategoryById(Long Id);
+    public List<CategoryDto> getAllSubCategoryById(Long Id);
+    public List<CategoryDto> getSubcategories(String categoryName);
 
 
 

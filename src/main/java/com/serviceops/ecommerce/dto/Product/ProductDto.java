@@ -1,8 +1,7 @@
 package com.serviceops.ecommerce.dto.Product;
 
 
-import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
-import com.serviceops.ecommerce.entities.SubCategory;
+import com.serviceops.ecommerce.dto.Category.CategoryDto;
 
 public class ProductDto {
 
@@ -13,17 +12,24 @@ public class ProductDto {
 
     private String productDesc;
     private int productPrice;
-    private SubCategoryDto productSubCategory;
+    private CategoryDto productCategory;
 
     public ProductDto(){
 
     }
-    public ProductDto(Long productId,String productName, String productDesc, int productPrice, SubCategoryDto productSubCategory) {
+    public ProductDto(String productName, String productDesc, int productPrice, CategoryDto productCategory) {
+
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.productPrice = productPrice;
+        this.productCategory = productCategory;
+    }
+    public ProductDto(Long productId,String productName, String productDesc, int productPrice, CategoryDto productCategory) {
         this.productId=productId;
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
-        this.productSubCategory = productSubCategory;
+        this.productCategory = productCategory;
     }
     public void setProductId(Long productId){this.productId=productId;}
     public long getProductId() {
@@ -54,11 +60,11 @@ public class ProductDto {
         this.productPrice = productPrice;
     }
 
-    public SubCategoryDto getProductSubCategory() {
-        return productSubCategory;
+    public CategoryDto getProductCategory() {
+        return productCategory;
     }
-    public void setProductSubCategory(SubCategoryDto productSubCategory) {
-        this.productSubCategory = productSubCategory;
+    public void setProductCategory(CategoryDto productCategory) {
+        this.productCategory = productCategory;
     }
     @Override
     public String toString() {
@@ -67,8 +73,8 @@ public class ProductDto {
                 ", productName='" + productName + '\'' +
                 ", productDesc='" + productDesc + '\'' +
                 ", productPrice=" + productPrice +
-                ", productSubCategory=" + productSubCategory +
-                ",productSubCategoryId="+this.getProductSubCategory().getSubcategoryId()+
+                ", productSubCategory=" + productCategory +
+
                 '}';
     }
 

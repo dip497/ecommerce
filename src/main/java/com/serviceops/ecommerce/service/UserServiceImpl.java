@@ -73,8 +73,8 @@ public class UserServiceImpl implements UserService {
     public boolean deleteUser(Long id) {
 
 
-         userRepository.deleteById(id);
-         return true;
+        userRepository.deleteById(id);
+        return true;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("password match");
             user.setUserPassword(newEncyptedPassowrd);
             userRepository.save(user);
-          //  userRepository.updatePassword(newEncyptedPassowrd, userPasswordDto.getEmail());
+            //  userRepository.updatePassword(newEncyptedPassowrd, userPasswordDto.getEmail());
             return true;
         }
         return false;

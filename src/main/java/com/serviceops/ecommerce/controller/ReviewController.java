@@ -1,24 +1,15 @@
 package com.serviceops.ecommerce.controller;
 
-import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.dto.ReviewDto;
-import com.serviceops.ecommerce.dto.user.UserDto;
-import com.serviceops.ecommerce.entities.OrderItem;
-import com.serviceops.ecommerce.entities.Product;
 import com.serviceops.ecommerce.service.ProductService;
 import com.serviceops.ecommerce.service.ReviewService;
-import com.serviceops.ecommerce.service.SubCategoryService;
 import com.serviceops.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 @Controller
 public class ReviewController {

@@ -1,30 +1,38 @@
 package com.serviceops.ecommerce;
 
 
+import com.serviceops.ecommerce.dto.Category.CategoryDto;
 import com.serviceops.ecommerce.dto.Product.ProductDto;
-import com.serviceops.ecommerce.dto.SubCategory.SubCategoryDto;
-import com.serviceops.ecommerce.dto.cart.AddToCartDto;
-import com.serviceops.ecommerce.dto.user.UserDto;
-import com.serviceops.ecommerce.entities.*;
-import com.serviceops.ecommerce.repository.*;
-import com.serviceops.ecommerce.service.CartService;
+
+import com.serviceops.ecommerce.entities.Product;
+import com.serviceops.ecommerce.repository.CategoryRepository;
+import com.serviceops.ecommerce.repository.ProductRepository;
+import com.serviceops.ecommerce.service.CategoryService;
 import com.serviceops.ecommerce.service.ProductService;
-import com.serviceops.ecommerce.service.SubCategoryService;
-import com.serviceops.ecommerce.service.UserService;
+import org.hibernate.sql.results.graph.collection.internal.ListInitializerProducer;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 
 @SpringBootTest
 class ProductRepositoryTests {
 
 	@Autowired
-	private ProductService productService;
+	private CategoryService categoryService;
+
 	@Autowired
-	private SubCategoryService subCategoryService;
+	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private ProductRepository productRepository;
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Test
@@ -37,10 +45,7 @@ class ProductRepositoryTests {
 	{
 		ProductDto productById = productService.findProductById(4L);
 		System.out.println(productById );
-//		SubCategoryDto productSubCategory = productService.findProductSubCategory(5L);
-//		if(productSubCategory.getCategory()==null) System.out.println("23e2");;
-//		System.out.println(productSubCategory.getSubcategoryId());
-//		logger.info("produc->{}",productSubCategory);
+
 	}
 
 	@Test
@@ -48,6 +53,37 @@ class ProductRepositoryTests {
 		productService.removeProduct(9L);
 
 	}
+
+	@Test
+	void addProduct()
+	{
+		productService.createProduct(new ProductDto("Apple","S23 Ultra",54000,categoryService.findCategoryById(1L)));
+	}
+	@Test
+	void  findProduct(){
+		List<ProductDto> productDtoList = categoryService.findCategoryById(6l).getProductDtoList();
+		System.out.println(productDtoList.get(0).getProductCategory().getCategoryId());
+
+
+	}
+
+	@Test
+	void findProductByCat(){
+
+		logger.info("Products ->{}",productRepository.findByProductCategory(categoryRepository.findById(1L).get()));
+	}
+	@Test
+	void getProductId(){
+		long productId = productRepository.findById(2l).get().getProductId();
+		System.out.println(productId);
+	}
+	@Test
+	void getProduct(){
+		ProductDto productById = productService.findProductById(3l);
+		System.out.println(productById.getProductId());
+
+	}
+
 
 
 

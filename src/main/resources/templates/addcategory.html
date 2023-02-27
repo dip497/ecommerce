@@ -16,6 +16,7 @@
 
     <form action="#" th:action="@{/admin/Category/save}"  th:object="${category}" method="POST">
         <input type="text" th:field="*{categoryName}" placeholder="Category Name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{parent_categoryname}" placeholder="Parent Category" class="form-control mb-4 col-4">
 
         <button type="submit" class="btn btn-info col-2">Save
             Category</button>

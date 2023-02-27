@@ -50,12 +50,18 @@
         </thead>
         <tbody>
         <tr th:each="count : ${allcategories}">
-            <td> <a th:href="@{/user/SubCategories/{id}(id=${count.getCategoryId()})}" th:text="${count.getCategoryName()}">
+            <td> <a th:href="@{/user/Product/{id}(id=${count.getCategoryId()})}" th:text="${count.getCategoryName()}">
             </a>
         </tr>
 
         </tbody>
     </table>
 </div>
+<form action="#" th:action="@{/user/Category/search}" method="POST">
+    <input type="text"  th:name="Category" class="form-control mb-4 col-4">
+    <button type="submit" class="btn btn-info col-2">Search
+        Category</button>
+</form>
 </body>
+
 </html>

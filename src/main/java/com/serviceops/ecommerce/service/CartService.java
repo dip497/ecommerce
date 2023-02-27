@@ -14,7 +14,7 @@ public interface CartService {
     Cart addToCart(AddToCartDto addToCartDto, ProductDto product, UserDto user);
 
     CartDto cartItemsList(UserDto user);
-    
+
     void updateCartItem(AddToCartDto cartDto, UserDto user);
 
 

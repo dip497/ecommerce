@@ -22,16 +22,16 @@ public class Product {
 
 
     @ManyToOne
-    private SubCategory productSubCategory;
+    private Category productCategory;
 
     protected Product(){
 
     }
-    public Product(String productName, String productDesc, int productPrice, SubCategory productSubCategory) {
+    public Product(String productName, String productDesc, int productPrice, Category productCategory) {
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
-        this.productSubCategory = productSubCategory;
+        this.productCategory = productCategory;
     }
 
        public long getProductId() {
@@ -62,11 +62,11 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public SubCategory getProductCategory() {
-        return productSubCategory;
+    public Category getProductCategory() {
+        return productCategory;
     }
-    public void setProductSubCategory(SubCategory productSubCategory) {
-        this.productSubCategory = productSubCategory;
+    public void setProductCategory(Category productCategory) {
+        this.productCategory = productCategory;
     }
 
     public List<Review> getReviews() {
