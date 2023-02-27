@@ -25,8 +25,7 @@ public class OrderController {
 
     @Autowired
     private OrderItemService orderItemList;
-    @Autowired
-    private OrderRepository orderRepository;
+
 
 
     @RequestMapping("/user/allOrder")
@@ -35,6 +34,7 @@ public class OrderController {
         List<OrderItem> orderItem = orderItemList.getAllOderItem(userService.getUser(principal.getName()));
         System.out.println(Arrays.toString(orderItem.toArray()));
         mav.addObject("ordersList",orderItem);
+        mav.addObject("orderPrice",orderService.getTotalAmount().longValue());
         return mav;
     }
 
@@ -43,6 +43,8 @@ public class OrderController {
         orderService.placeOrder(userService.getUser(principal.getName()));
         return "redirect:/user/allOrder";
     }
+
+
 
 
 
