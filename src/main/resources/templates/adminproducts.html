@@ -36,6 +36,8 @@
         <tr>
             <th>Product Name</th>
             <th>Price</th>
+            <th>Created By</th>
+            <th>Update By</th>
             <th>Actions</th>
 
         </tr>
@@ -44,6 +46,8 @@
         <tr th:each="count : ${products}">
             <td><a th:href="@{/admin/Product/{id}(id=${count.getProductId()})}" th:text="${count.getProductName()}"></a></td>
             <td th:text="${count.getProductPrice()}+Rs"></td>
+            <td th:text="${count.getCreatedBy()}"></td>
+            <td th:text="${count.getUpdatedBy()}"></td>
             <td>
                 <a th:href="@{/admin/Product/Update/{id}(id=${count.getProductId()})}"
                    class="btn btn-primary">Update</a>

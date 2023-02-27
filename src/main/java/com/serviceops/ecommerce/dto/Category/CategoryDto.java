@@ -16,32 +16,10 @@ public class CategoryDto{
         private CategoryDto parent;
         private List<CategoryDto> subCategoryList = new ArrayList<>();
         private List<ProductDto> productDtoList = new ArrayList<>();
-
-
-//    public void setCreatedTime(Timestamp createdTime) {
-//        this.createdTime = createdTime;
-//    }
-//
-//    public String getUpdatedBy() {
-//        return updatedBy;
-//    }
-//
-//    public void setUpdatedBy(String updatedBy) {
-//        this.updatedBy = updatedBy;
-//    }
-//
-//    public Timestamp getUpdatedTime() {
-//        return updatedTime;
-//    }
-//
-//    public void setUpdatedTime(Timestamp updatedTime) {
-//        this.updatedTime = updatedTime;
-//    }
-
-//    private String createdBy;
-//        private Timestamp createdTime;
-//        private String updatedBy;
-//        private Timestamp updatedTime;
+        private String createdBy;
+        private Timestamp createdTime;
+        private String updatedBy;
+        private Timestamp updatedTime;
         private String parent_categoryname;
          public CategoryDto(){
 
@@ -53,10 +31,8 @@ public class CategoryDto{
 
         }
         public CategoryDto(String categoryName,String parent_categoryname){
-
             this.categoryName = categoryName;
             this.parent_categoryname=parent_categoryname;
-
         }
         public Long getCategoryId() {
             return categoryId;
@@ -112,18 +88,39 @@ public class CategoryDto{
             this.subCategoryList = subCategoryList;
         }
 
-//        public String getCreatedBy() {
-//            return createdBy;
-//        }
-//
-//        public void setCreatedBy(String createdBy) {
-//            this.createdBy = createdBy;
-//        }
-//
-//        public Timestamp getCreatedTime() {
-//            return createdTime;
-//        }
-//
+        public void setCreatedTime(Timestamp createdTime) {
+            this.createdTime = createdTime;
+        }
+
+          public String getUpdatedBy() {
+            return updatedBy;
+        }
+
+        public void setUpdatedBy(String updatedBy) {
+            this.updatedBy = updatedBy;
+        }
+
+        public Timestamp getUpdatedTime() {
+            return updatedTime;
+        }
+
+        public void setUpdatedTime(Timestamp updatedTime) {
+            this.updatedTime = updatedTime;
+        }
+
+
+        public String getCreatedBy() {
+            return createdBy;
+        }
+
+        public void setCreatedBy(String createdBy) {
+            this.createdBy = createdBy;
+        }
+
+        public Timestamp getCreatedTime() {
+            return createdTime;
+        }
+
 
         @Override
         public String toString() {

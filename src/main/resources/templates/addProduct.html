@@ -31,7 +31,7 @@
 
     <h2>Product Category</h2>
 
-    <form th:if="${!isEmpty}" action="#" th:action="@{/admin/Product/save/{id}(id=${productDto.getProductCategory().getCategoryId()})}" th:object="${productDto}" method="POST">
+    <form th:unless="${isEmpty}" action="#" th:action="@{/admin/Product/save/{id}(id=${productDto.getProductCategory().getCategoryId()})}" th:object="${productDto}" method="POST">
         <input type="text" name="name" placeholder="name" th:field="*{productName}"/>
         <input type="text" name="name" placeholder="description" th:field="*{productDesc}"/>
         <input type="number" name="name" placeholder="price" th:field="*{productPrice}"/>

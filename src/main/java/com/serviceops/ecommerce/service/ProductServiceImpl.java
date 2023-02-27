@@ -27,7 +27,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public boolean createProduct(ProductDto product) {
-        productRepository.save(new Product(product.getProductName(), product.getProductDesc(), product.getProductPrice(),categoryRepository.findById(product.getProductCategory().getCategoryId()).get()));
+        Product product1 = new Product(product.getProductName(), product.getProductDesc(), product.getProductPrice(), categoryRepository.findById(product.getProductCategory().getCategoryId()).get());
+        product1.setCreatedBy(product.getCreatedBy());
+        productRepository.save(product1);
         return true;
     }
 
@@ -37,6 +39,7 @@ public class ProductServiceImpl implements ProductService{
         product1.setProductDesc(product.getProductDesc());
         product1.setProductName(product.getProductName());
         product1.setProductPrice(product.getProductPrice());
+        product1.setUpdatedBy(product.getUpdatedBy());
         productRepository.save(product1);
         return product;
     }
@@ -79,16 +82,15 @@ public class ProductServiceImpl implements ProductService{
 
     }
 
-//    private SubCategoryDto convertsub(SubCategory subCategory)
-//    {
-//        return new SubCategoryDto(subCategory.getSubcategoryId(),subCategory.getSubcategoryName(),convert(subCategory.getCategory()));
-//    }
     private CategoryDto convert(Category category) {
         return new CategoryDto(category.getCategoryId(), category.getCategoryName());
     }
     private ProductDto ProductToDto(Product product)
     {
-        return new ProductDto(product.getProductId(),product.getProductName(), product.getProductDesc(),product.getProductPrice(),convert(product.getProductCategory()));
+        ProductDto productDto = new ProductDto(product.getProductId(), product.getProductName(), product.getProductDesc(), product.getProductPrice(), convert(product.getProductCategory()));
+        productDto.setCreatedBy(product.getCreatedBy());
+        productDto.setUpdatedBy(product.getUpdatedBy());
+        return productDto;
     }
 
 }

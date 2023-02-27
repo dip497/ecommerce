@@ -33,9 +33,9 @@ public class AdminCategoryController {
     @RequestMapping("/admin/Category/search")
     public ModelAndView getCategory( @RequestParam(value = "Category", required = true) String category){
         ModelAndView mav = new ModelAndView("adminCategories");
+        System.out.println(category);
         List<CategoryDto> subcategories = CategoryService.getSubcategories(category);
-        for(CategoryDto i : subcategories) System.out.println(i.getCategoryName());
-        mav.addObject("categories",subcategories    );
+        mav.addObject("categories",subcategories);
         return mav;
 
     }
@@ -59,7 +59,7 @@ public class AdminCategoryController {
     @RequestMapping("/admin/Category/save")
     public String getFormDetails(@ModelAttribute CategoryDto category, Principal principal)
     {
-
+        category.setCreatedBy(principal.getName());
         CategoryService.createCategory(category);
         return "redirect:/admin/Category";
 
@@ -68,14 +68,13 @@ public class AdminCategoryController {
     public ModelAndView updateCategory(@PathVariable("id") Long id){
 
             CategoryDto categoryDto = CategoryService.findCategoryById(id);
-            logger.info("first dto ->{}", categoryDto);
             ModelAndView mav = new ModelAndView("updateCategory");
             mav.addObject("updateCategory",categoryDto);
             return mav;
     }
     @RequestMapping("admin/Category/updated")
-    public String updatedCategory(@ModelAttribute CategoryDto categoryDto){
-        logger.info("Category ->{}",categoryDto);
+    public String updatedCategory(@ModelAttribute CategoryDto categoryDto,Principal principal){
+        categoryDto.setUpdatedBy(principal.getName());
         CategoryService.updateCategoryById(categoryDto);
         return "redirect:/admin/Category";
     }

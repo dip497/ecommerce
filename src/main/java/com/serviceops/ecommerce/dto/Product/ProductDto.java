@@ -4,8 +4,6 @@ package com.serviceops.ecommerce.dto.Product;
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
 
 public class ProductDto {
-
-
     private long productId;
 
     private String productName;
@@ -13,6 +11,12 @@ public class ProductDto {
     private String productDesc;
     private int productPrice;
     private CategoryDto productCategory;
+
+    private String createdBy;
+    private String updatedBy;
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
 
     public ProductDto(){
 
@@ -66,6 +70,23 @@ public class ProductDto {
     public void setProductCategory(CategoryDto productCategory) {
         this.productCategory = productCategory;
     }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     @Override
     public String toString() {
         return "ProductDto{" +

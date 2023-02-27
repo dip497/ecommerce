@@ -38,8 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
         }
         else{
             Category category = categoryRepository.findBycategoryName(categoryDto.getParent_categoryname());
-            categoryRepository.save(new Category(categoryDto.getCategoryName(),
-                    categoryRepository.findBycategoryName(categoryDto.getParent_categoryname())));
+            Category category1 = new Category(categoryDto.getCategoryName(), categoryRepository.findBycategoryName(categoryDto.getParent_categoryname()));
+            category1.setCreatedBy(categoryDto.getCreatedBy());
+            categoryRepository.save(category1);
             return true;
         }
     }
@@ -68,6 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto updateCategoryById(CategoryDto categoryDto) {
         Category category= categoryRepository.findById(categoryDto.getCategoryId()).get();
         category.setCategoryName(categoryDto.getCategoryName());
+        category.setUpdatedBy(categoryDto.getUpdatedBy());
         categoryRepository.save(category);
         return categoryDto;
 
@@ -86,10 +88,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
     private CategoryDto convert(Category category)
     {
-        return new CategoryDto(category.getCategoryId(),category.getCategoryName());
+        CategoryDto categoryDto = new CategoryDto(category.getCategoryId(), category.getCategoryName());
+        categoryDto.setCreatedBy(category.getCreatedBy());
+        categoryDto.setUpdatedBy(category.getUpdatedBy());
+        return categoryDto;
     }
     private ProductDto con(Product product){
-        return new ProductDto(product.getProductId(), product.getProductName(), product.getProductDesc(), product.getProductPrice(),convert(product.getProductCategory()));
+        ProductDto productDto = new ProductDto(product.getProductId(), product.getProductName(), product.getProductDesc(), product.getProductPrice(), convert(product.getProductCategory()));
+        productDto.setCreatedBy(product.getCreatedBy());
+        productDto.setUpdatedBy(product.getUpdatedBy());
+        return productDto;
     }
 
 }

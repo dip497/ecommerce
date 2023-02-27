@@ -43,14 +43,17 @@
         <thead>
         <tr>
             <th>Category Name</th>
+            <th>Created By</th>
+            <th>Updated By</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="count : ${categories}">
-            <td> <a th:href="@{/admin/AllProducts/{id}(id=${count.getCategoryId()})}" th:text="${count.getCategoryName()}">
-            </a><td>
-                <a th:href="@{/admin/Category/Update/{id}(id=${count.getCategoryId()})}"
+            <td> <a th:href="@{/admin/AllProducts/{id}(id=${count.getCategoryId()})}" th:text="${count.getCategoryName()}"></a></td>
+            <td th:text="${count.getCreatedBy()}"></td>
+            <td th:text="${count.getUpdatedBy()}"></td>
+            <td> <a th:href="@{/admin/Category/Update/{id}(id=${count.getCategoryId()})}"
                     class="btn btn-primary">Update</a>
                 <a  th:href="@{/admin/Category/delete/{id}(id=${count.getCategoryId()})}"class="btn btn-danger">Delete</a>
             </td>
