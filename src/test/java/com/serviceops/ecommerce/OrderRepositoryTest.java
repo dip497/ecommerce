@@ -33,7 +33,10 @@ class OrderRepositoryTest {
 //
     @Autowired
    private OrderService orderService;
-//
+    @Autowired
+    private UserRepository userRepository;
+
+    //
     @Test
    void orderProductRepo() {
         System.out.println(orderService.getTotalAmount());

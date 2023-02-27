@@ -20,7 +20,7 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem( Product product, Order order, int quantity, int price) {
+    public OrderItem(Product product, Order order, int quantity, int price) {
 
         this.product = product;
         this.order = order;

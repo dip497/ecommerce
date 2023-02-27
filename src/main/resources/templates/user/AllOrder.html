@@ -40,7 +40,7 @@
 <body>
 <div class="container my-2" align="center">
 
-    <h3>order List</h3>
+    <h3>Orders List</h3>
     <table style="width:80%" border="1"
            class="table table-striped table-responsive-md">
         <thead>
@@ -48,6 +48,7 @@
             <th>Name</th>
             <th>Quantity</th>
             <th>Product Price</th>
+            <th>Total Order Price</th>
             <th>Action</th>
 
         </tr>
@@ -57,14 +58,14 @@
             <td th:text="${order.getProduct().getProductName()}"></td>
             <td th:text="${order.getQuantity()}"></td>
             <td th:text="${order.getPrice()}"></td>
-            <td>
- <a th:href="@{/user/allorder/addreview/{productid}(productid=${order.getProduct().getProductId()})}" class="btn btn-primary">Add review</a>
-
+            <td th:text="${order.getQuantity()*order.getPrice()}"></td>
+            <td><a th:href="@{/user/allorder/addreview/{productid}(productid=${order.getProduct().getProductId()})}" class="btn btn-primary">Add review</a>
             </td>
         </tr>
 
         </tbody>
     </table>
+    Total Order Value = <a th:text="${orderPrice}"></a>
 </div>
 </body>
 </html>

@@ -7,11 +7,13 @@ import com.serviceops.ecommerce.dto.cart.CartItemDto;
 import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.Cart;
 import com.serviceops.ecommerce.entities.Product;
-import com.serviceops.ecommerce.entities.User;
+import com.serviceops.ecommerce.exceptions.CustomException;
 import com.serviceops.ecommerce.repository.CartRepository;
 import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ProductRepository productRepository;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public CartServiceImpl(){}
     public CartServiceImpl(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
@@ -39,9 +43,18 @@ public class CartServiceImpl implements CartService {
     public Cart addToCart(AddToCartDto addToCartDto, ProductDto productDto, UserDto user) {
         Product product = productRepository.findById(productDto.getProductId()).get();
         Cart cart = new Cart(product,userRepository.findByUserEmail(user.getUserEmail()),addToCartDto.getQuantity());
-        cartRepository.save(cart);
 
-        return cart;
+
+        try{
+            cartRepository.save(cart);
+            logger.info("Product added to cart successfully ->{}", addToCartDto.getProductId());
+            return cart;
+        }catch (Exception e){
+            logger.error("Product adding to cart failed");
+            throw new CustomException(e.getMessage());
+        }
+
+
     }
 
     @Override
@@ -77,14 +90,8 @@ public class CartServiceImpl implements CartService {
     public void deleteCartItem(int id) {
         cartRepository.deleteById(id);
 
-
-
     }
 
-    @Override
-    public void deleteCartItems(int userId) {
-        cartRepository.deleteAll();
-    }
 
     @Override
     public void deleteUserCartItems(UserDto user) {

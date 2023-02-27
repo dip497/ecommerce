@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface OrderItemService {
 
-    void addOrderedProduct(OrderItem orderItem);
-    List<OrderItem>  getAllOderItem(UserDto user);
+    List<OrderItem> getAllOderItem(UserDto user);
 
 
 
