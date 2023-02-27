@@ -23,6 +23,11 @@
                     You have successfully registered our app!
                 </div>
             </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-info ">
+                    registeration failed
+                </div>
+            </div>
             <div class="card-body">
                 <form
                         method="post"
@@ -86,19 +91,6 @@
                            th:if="${#fields.hasErrors('userPassword')}"></p>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label class="form-label">Role</label>
-                        <input
-                                class="form-control"
-                                id="role"
-                                name="role"
-                                placeholder="Enter role"
-                                th:field="*{userRole}"
-                                type="text"
-                        />
-                        <p th:errors = "*{userRole}" class="text-danger"
-                           th:if="${#fields.hasErrors('userRole')}"></p>
-                    </div>
 
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Register</button>

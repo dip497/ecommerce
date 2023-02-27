@@ -2,30 +2,28 @@ package com.serviceops.ecommerce.service;
 
 import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.dto.user.UserPasswordDto;
-import com.serviceops.ecommerce.entities.Role;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.exceptions.CustomException;
 import com.serviceops.ecommerce.repository.UserRepository;
 import com.serviceops.ecommerce.utils.Helper;
 import com.serviceops.ecommerce.utils.PasswordHelper;
-import jakarta.persistence.PostUpdate;
-import jakarta.persistence.PreUpdate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public boolean signUp(UserDto userDto) throws CustomException {
@@ -39,8 +37,10 @@ public class UserServiceImpl implements UserService {
         user.setCreatedBy(userDto.getCreatedBy());
         try {
             userRepository.save(user);
+            logger.info("User saved successfully",userDto.getUserEmail() + " by " + userDto.getCreatedBy());
             return true;
         } catch (Exception e) {
+            logger.error("User failed to save");
             throw new CustomException(e.getMessage());
         }
     }
@@ -51,9 +51,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUser(String email) {
         User user = userRepository.findByUserEmail(email);
-
+        logger.info("User found");
 
         if (Helper.isNull(user)) {
+            logger.error("User not found");
             throw new CustomException("User not exists");
         }
 
@@ -66,19 +67,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
+        if(users.isEmpty()){
+            logger.error("Empty List of Users");
+        }
         return users.stream().map(this::entityToDto).toList();
     }
 
     @Override
-    public boolean deleteUser(Long id) {
+    public void deleteUser(Long id) {
 
 
-        userRepository.deleteById(id);
-        return true;
+         userRepository.deleteById(id);
+         logger.info("User deleted", id);
     }
 
     @Override
-    public boolean updateUser(UserDto userDto) {
+    public void updateUser(UserDto userDto) {
         Optional<User> optionalUser =  userRepository.findById(userDto.getUserId());
         if(optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -87,10 +91,12 @@ public class UserServiceImpl implements UserService {
             user.setUserRole(userDto.getUserRole());
             user.setUpdatedBy(userDto.getUpdatedBy());
             userRepository.save(user);
+            logger.info("User updated", userDto.getUserId());
         }else{
+            logger.error("user not found");
+
             throw  new CustomException("user not found");
         }
-        return true;
     }
 
     @Override
@@ -104,9 +110,10 @@ public class UserServiceImpl implements UserService {
             System.out.println("password match");
             user.setUserPassword(newEncyptedPassowrd);
             userRepository.save(user);
-            //  userRepository.updatePassword(newEncyptedPassowrd, userPasswordDto.getEmail());
+            logger.info("password updated of ", userPasswordDto.getEmail());
             return true;
         }
+        logger.error("password failed to match");
         return false;
     }
 
@@ -114,6 +121,7 @@ public class UserServiceImpl implements UserService {
         UserDto dto =  new UserDto(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserEmail(), user.getUserPassword(), user.getUserRole());
         dto.setUpdatedBy(user.getUpdatedBy());
         dto.setCreatedBy(user.getCreatedBy());
+        logger.info("entity to dto converted");
         return dto;
     }
 

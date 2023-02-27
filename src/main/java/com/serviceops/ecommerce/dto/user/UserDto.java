@@ -1,14 +1,18 @@
 package com.serviceops.ecommerce.dto.user;
 
 import com.serviceops.ecommerce.entities.Role;
+import jakarta.validation.constraints.NotEmpty;
 
 
 public class UserDto   {
     private  Long userId;
     private  String userFirstName;
     private  String userLastName;
+    @NotEmpty
     private  String userEmail;
+    @NotEmpty
     private String userPassword;
+    @NotEmpty
     private  Role userRole;
 
     private String updatedBy;

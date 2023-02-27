@@ -10,7 +10,7 @@ public class User extends Audit{
     private Long userId;
     private String userFirstName;
     private String userLastName;
-    @Column(unique = true)
+    @Column(nullable = false,unique = true)
     private String userEmail;
     @Column(nullable = false)
     private String userPassword;

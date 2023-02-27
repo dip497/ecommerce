@@ -3,6 +3,7 @@ package com.serviceops.ecommerce.controller;
 import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.service.CategoryService;
 import com.serviceops.ecommerce.service.ProductService;
+import com.serviceops.ecommerce.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +24,36 @@ public class AdminProductController {
     @Autowired
     private CategoryService CategoryService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private ReviewService reviewService;
 
     @RequestMapping("/admin/AllProducts/{id}")
     public String getAllProducts(@PathVariable("id") Long Id, Model model)
     {
         System.out.println(Id);
         List<ProductDto> productSet = CategoryService.findCategoryById(Id).getProductDtoList();
+        if(!productSet.isEmpty()){
+            model.addAttribute("products",productSet);
 
-        model.addAttribute("products",productSet);
+        }else{
+            model.addAttribute("id",Id);
+            model.addAttribute("isEmpty",true);
+            model.addAttribute("productDto",new ProductDto());
+
+            return "addProduct";
+
+        }
+
         return "adminproducts";
     }
 
 
-//    @RequestMapping("/admin/Product/{id}")
-//    public String getAllProducts(@PathVariable("id") Long Id, Model model){
-//        model.addAttribute("product",productService.findProductById(Id));
-//        return "/user/insideproduct";
-//    }
+    @RequestMapping("/admin/Product/{id}")
+    public String getCategoryProducts(@PathVariable("id") Long Id, Model model){
+        model.addAttribute("product",productService.findProductById(Id));
+        model.addAttribute("reviews",reviewService.productReview(Id));
+        return "/user/insideproduct";
+    }
     @GetMapping("/admin/Product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long Id)
     {

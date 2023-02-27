@@ -12,9 +12,9 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    boolean deleteUser(Long id);
+    void deleteUser(Long id);
 
-    boolean updateUser(UserDto user);
+    void updateUser(UserDto user);
 
     boolean updatePassword(UserPasswordDto userPasswordDto);
 

@@ -2,6 +2,7 @@ package com.serviceops.ecommerce.controller;
 
 
 import com.serviceops.ecommerce.dto.user.UserDto;
+import com.serviceops.ecommerce.entities.Role;
 import com.serviceops.ecommerce.service.ProductService;
 import com.serviceops.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,17 +71,17 @@ public class MainController {
     }
 
     @RequestMapping("/register/save")
-    public ModelAndView saveStudent(@ModelAttribute UserDto userDto){
+    public String saveStudent(@ModelAttribute UserDto userDto){
 
-        ModelAndView mav = new ModelAndView("registerMessage");
         userDto.setCreatedBy(userDto.getUserEmail());
+        userDto.setUserRole(Role.CUSTOMER);
         boolean isSignUp = userService.signUp(userDto);
         if(isSignUp){
-            mav.addObject("message","saved");
+           return "redirect:/register?success";
         }else{
-            mav.addObject("message","failed");
+            return "redirect:/register?error";
         }
-        return mav;
+
     }
 
     @GetMapping("/admin/users")
