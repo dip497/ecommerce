@@ -31,10 +31,11 @@ class OrderRepositoryTest {
 //    @Autowired
 //    private OrderItemRepository orderItemRepository;
 //
-//    @Autowired
-//    private OrderService orderService;
+    @Autowired
+   private OrderService orderService;
 //
-//    @Test
-//    void orderProductRepo(){
-//
+    @Test
+   void orderProductRepo() {
+        System.out.println(orderService.getTotalAmount());
+    }
 }

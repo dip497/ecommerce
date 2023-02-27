@@ -5,6 +5,7 @@ import com.serviceops.ecommerce.repository.CategoryRepository;
 import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.repository.ReviewRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
+import com.serviceops.ecommerce.service.OrderItemService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,6 @@ class EcommerceApplicationTests {
 
 	@Autowired
 	private CategoryRepository	categoryRepository;
-
 	@Autowired
 	private UserRepository userRepository;
 

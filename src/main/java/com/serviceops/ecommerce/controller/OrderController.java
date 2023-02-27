@@ -1,21 +1,16 @@
 package com.serviceops.ecommerce.controller;
 
-import com.serviceops.ecommerce.dto.order.OrderDto;
-import com.serviceops.ecommerce.entities.Order;
 import com.serviceops.ecommerce.entities.OrderItem;
-import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.OrderRepository;
 import com.serviceops.ecommerce.service.OrderItemService;
 import com.serviceops.ecommerce.service.OrderService;
 import com.serviceops.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

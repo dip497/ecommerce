@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -34,7 +33,7 @@ public class AdminProductController {
         System.out.println(Id);
         List<ProductDto> productSet = CategoryService.findCategoryById(Id).getProductDtoList();
         if(!productSet.isEmpty()){
-            model.addAttribute("Empty",false);
+            model.addAttribute("isEmpty",false);
             model.addAttribute("products",productSet);
 
         }else{
@@ -79,10 +78,9 @@ public class AdminProductController {
         return mav;
     }
     @RequestMapping("/admin/Product/save/{id}")
-    public String getFormDetails(@PathVariable("id") Long Id, @ModelAttribute ProductDto productDto, Principal principal)
+    public String getFormDetails(@PathVariable("id") Long Id,@ModelAttribute ProductDto productDto)
     {
         productDto.setProductCategory(CategoryService.findCategoryById(Id));
-        productDto.setCreatedBy(principal.getName());
         productService.createProduct(productDto);
         return "redirect:/admin/Category";
 
@@ -90,14 +88,14 @@ public class AdminProductController {
     @RequestMapping("admin/Product/Update/{id}")
     public ModelAndView updateProduct(@PathVariable("id") Long id){
         ProductDto productById = productService.findProductById(id);
+        logger.info("first dto ->{}", productById);
         ModelAndView mav = new ModelAndView("updateProduct");
         mav.addObject("productDto",productById);
         return mav;
     }
     @RequestMapping("admin/Product/updated/{id}")
-    public String updatedProduct(@PathVariable("id") Long Id,@ModelAttribute ProductDto productDto,Principal principal){
+    public String updatedProduct(@PathVariable("id") Long Id,@ModelAttribute ProductDto productDto){
         productDto.setProductId(Id);
-        productDto.setUpdatedBy(principal.getName());
         productService.updateProduct(productDto);
         return "redirect:/admin/Category";
     }

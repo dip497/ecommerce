@@ -1,52 +1,42 @@
 package com.serviceops.ecommerce.dto.order;
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 
-import jakarta.validation.constraints.NotNull;
+
+
 
 public class OrderItemDto {
+    private  Integer id;
+    private  ProductDto productDto;
+    private  OrderDto orderDto;
+    private  int quantity;
+    private  long price;
 
-    private @NotNull int orderId;
-    private @NotNull int productId;
-
-    private @NotNull int quantity;
-    private @NotNull double price;
-
-    public OrderItemDto(int orderId, int productId, int quantity, double price) {
-        this.orderId = orderId;
-        this.productId = productId;
+    public OrderItemDto(Integer id, ProductDto product, OrderDto orderDto, int quantity, long price) {
+        this.id = id;
+        this.productDto = product;
+        this.orderDto = orderDto;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public ProductDto getProduct() {
+        return productDto;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public OrderDto getOrder() {
+        return orderDto;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
+    public long getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }
