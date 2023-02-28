@@ -1,15 +1,17 @@
 package com.serviceops.ecommerce.dto.cart;
 
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.entities.Cart;
 import com.serviceops.ecommerce.entities.Product;
+import com.serviceops.ecommerce.utils.Helper;
 import jakarta.validation.constraints.NotNull;
 
 public class CartItemDto {
 
     private Integer id;
     private @NotNull Integer quantity;
-    private @NotNull Product product;
+    private @NotNull ProductDto product;
 
     public CartItemDto(){
 
@@ -19,7 +21,7 @@ public class CartItemDto {
     public CartItemDto(Cart cart) {
         this.setId(cart.getCartId());
         this.setQuantity(cart.getQuantity());
-        this.setProduct(cart.getProduct());
+        this.setProduct(Helper.EntityToDto(cart.getProduct()));
     }
 
     @Override
@@ -47,14 +49,14 @@ public class CartItemDto {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
+    public ProductDto getProduct() {
         return product;
     }
 
     public String getProductName(){
         return product.getProductName();
     }
-    public void setProduct(Product product) {
+    public void setProduct(ProductDto product) {
         this.product = product;
     }
 }

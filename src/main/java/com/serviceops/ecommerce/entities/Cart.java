@@ -1,5 +1,6 @@
 package com.serviceops.ecommerce.entities;
 
+import com.serviceops.ecommerce.dto.Product.ProductDto;
 import jakarta.persistence.*;
 
 
