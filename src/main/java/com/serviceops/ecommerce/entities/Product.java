@@ -16,7 +16,7 @@ public class Product extends Audit{
 
     private String productDesc;
     private int productPrice;
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, orphanRemoval = true )
+    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
     private List<Review> reviews;
 
 
