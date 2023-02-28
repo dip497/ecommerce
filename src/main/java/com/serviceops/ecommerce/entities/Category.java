@@ -17,9 +17,9 @@ public class Category extends Audit{
     private String categoryName;
     @ManyToOne
     private Category parent;
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
     private List<Category> subcategories = new ArrayList<>();
-    @OneToMany(mappedBy = "productCategory",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productCategory",cascade = CascadeType.REMOVE)
     private List<Product> products = new ArrayList<>();
     protected Category(){
 
