@@ -8,6 +8,7 @@ import com.serviceops.ecommerce.entities.OrderItem;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.repository.OrderItemRepository;
 import com.serviceops.ecommerce.repository.OrderRepository;
+import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     OrderItemRepository orderItemRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
 
     @Autowired
@@ -47,7 +51,7 @@ public class OrderServiceImpl implements OrderService{
 
             OrderItem orderItem = new OrderItem();
             orderItem.setPrice(cartItemDto.getProduct().getProductPrice());
-            orderItem.setProduct(cartItemDto.getProduct());
+            orderItem.setProduct(productRepository.findById(cartItemDto.getProduct().getProductId()).get());
             orderItem.setQuantity(cartItemDto.getQuantity());
             orderItem.setOrder(newOrder);
             orderItemRepository.save(orderItem);
