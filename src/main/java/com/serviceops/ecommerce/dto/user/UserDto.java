@@ -1,10 +1,11 @@
 package com.serviceops.ecommerce.dto.user;
 
+import com.serviceops.ecommerce.dto.AuditDto;
 import com.serviceops.ecommerce.entities.Role;
 import jakarta.validation.constraints.NotEmpty;
 
 
-public class UserDto   {
+public class UserDto extends AuditDto {
     private  Long userId;
     private  String userFirstName;
     private  String userLastName;
@@ -20,6 +21,7 @@ public class UserDto   {
     private String createdBy;
 
     public UserDto() {
+
     }
 
     public UserDto(Long userId, String userFirstName, String userLastName, String userEmail, String userPassword, Role userRole) {
@@ -29,6 +31,17 @@ public class UserDto   {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userRole = userRole;
+    }
+
+    public UserDto(Long userId, String userFirstName, String userLastName, String userEmail, String userPassword, Role userRole,String updatedBy,String createdBy) {
+        super(createdBy,updatedBy);
+        this.userId = userId;
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
+
     }
 
     public Long getUserId() {
@@ -104,6 +117,8 @@ public class UserDto   {
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", createdBy='" + createdBy + '\'' +
                 '}';
     }
 }

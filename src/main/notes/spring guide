@@ -1,0 +1,73 @@
+Starters
+Starters are a set of convenient dependency descriptors that you can include in your application.
+
+spring-boot-starter
+core starter, including auto-configuration support, logging and yaml
+
+spring-boot starter
+JUint Jupiter, Hamcrest and Mockito
+
+when we create bean means we are creating a object in Application context
+
+bean
+1)pervious to create bean
+    for e.g we have to define in beans.xml
+        <bean id ="collegeBean" class ="whole package name">
+        <bean>
+instead we can use
+2)@component anotations
+by default class name in small letter
+to give id our self @component("id here")
+    @component
+    public class collegeBean{
+
+    }
+@configuration
+because we are saying this class will make configuration
+@componentScan(basePackage ="where to scan)
+
+3) @Bean
+@Bean is under @ configuration anontations
+@Bean(name={"",""})
+heere method name will be the id
+public College CollegeBean(){
+    College college = new College();
+    return college;
+}
+
+dependencay injection
+1) using constructor
+2) using setter
+before we need to define  in beans.xml
+<property name="varaible name" ref="what object"/>
+@autowired for single implemenation classes
+
+    unsatisfiesDependencyException
+    gives error need one got 2
+
+@Compent
+@Primary
+    if we have multiple implementation and we want primary implementation to inject
+    we can use @primary anotation
+
+@Autowired
+@Qualifier("class name")
+
+@Value inject value into varaibles
+@Value("asda")
+it will set name without setter method
+
+if the value paramater is important for us we can use
+@Required
+with @Value in setter method
+if the value is not given then it will give error
+
+to get from property source we need to define propertySource
+@PropertySource("classpath:name we define in .properties")
+
+@Value("${name her"}
+
+
+
+
+

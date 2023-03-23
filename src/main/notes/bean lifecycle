@@ -1,0 +1,15 @@
+
+object created
+        |
+dependency injection
+        |
+ @postConstruct
+
+
+ @PreDestroy
+    before destroy do this cleanup stuff
+
+when working with standalone application
+we neeed to create and close
+
+and when working with web application we dont  need to maintain it

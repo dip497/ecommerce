@@ -7,6 +7,7 @@ import com.serviceops.ecommerce.entities.Category;
 import com.serviceops.ecommerce.entities.Product;
 
 import com.serviceops.ecommerce.repository.CategoryRepository;
+import com.serviceops.ecommerce.repository.CustomRepository;
 import com.serviceops.ecommerce.repository.ProductRepository;
 
 import com.serviceops.ecommerce.utils.Helper;
@@ -28,24 +29,32 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    CustomRepository customRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
     public boolean createProduct(ProductDto product) {
-        Product product1 = new Product(product.getProductName(), product.getProductDesc(), product.getProductPrice(), categoryRepository.findById(product.getProductCategory().getCategoryId()).get());
+        Product product1 = new Product(product.getProductName(), product.getProductDesc(), product.getProductPrice(),
+                customRepository.findByColumn("categoryId",String.valueOf(product.getProductCategory().getCategoryId()),Category.class));
+             //   categoryRepository.findById(product.getProductCategory().getCategoryId()).get());
         product1.setCreatedBy(product.getCreatedBy());
-        productRepository.save(product1);
+        customRepository.save(product1);
+      //  productRepository.save(product1);
         logger.info("Product Created");
         return true;
     }
 
     @Override
     public ProductDto updateProduct(ProductDto product) {
-        Product product1 = productRepository.findById(product.getProductId()).get();
+        Product product1 = customRepository.findByColumn("productId",String.valueOf(product.getProductId()),Product.class);
+         //       productRepository.findById(product.getProductId()).get();
         product1.setProductDesc(product.getProductDesc());
         product1.setProductName(product.getProductName());
         product1.setProductPrice(product.getProductPrice());
         product1.setUpdatedBy(product.getUpdatedBy());
-        productRepository.save(product1);
+        customRepository.save(product1);
+      //  productRepository.save(product1);
         logger.info("Updated Product ->",product1);
         return product;
     }
@@ -55,7 +64,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public boolean removeProduct(Long Id) {
-        productRepository.deleteById(Id);
+        customRepository.deleteById(Product.class,Id,"productId");
+    //    productRepository.deleteById(Id);
         logger.info("Deleted Product Id"+ Id);
         return true;
     }
@@ -63,7 +73,8 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductDto findProductById(Long Id) {
 
-        Product product = productRepository.findById(Id).get();
+        Product product = customRepository.findByColumn("productId",String.valueOf(Id),Product.class);
+             //   productRepository.findById(Id).get();
         ProductDto productDto = Helper.EntityToDto(product);
         productDto.setProductId(product.getProductId());
         logger.info("Product Found ->{}",product);
@@ -73,16 +84,17 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<ProductDto> getAllProducts() {
 
-        List<Product> products = productRepository.findAll();
+        List<Product> products = customRepository.findAll(Product.class);
+             //   productRepository.findAll();
         logger.info("All Products List ->{}",products);
-        return products.stream().map(products1 -> Helper.EntityToDto(products1)).collect(Collectors.toList());
+        return products.stream().map(Helper::EntityToDto).toList();
 
     }
 
     @Override
     public CategoryDto findProductCategory(Long Id) {
         logger.info("Product SubCategory"+Id);
-        return Helper.EntityToDto(categoryRepository.findById(Id).get());
+        return Helper.EntityToDto(customRepository.findByColumn("categoryId",String.valueOf(Id),Category.class));
     }
 
     @Override

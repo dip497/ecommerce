@@ -1,0 +1,12 @@
+use
+@Bean
+@Scope can be this
+ConfigurableBeanFactory.SCOPE_PROTOTYPE, ConfigurableBeanFactory.SCOPE_SINGLETON,
+org.springframework.web.context.WebApplicationContext.SCOPE_REQUEST,
+org.springframework.web.context.WebApplicationContext.SCOPE_SESSION,
+
+
+singleton (default) only one object will created and shared
+prototype :  where every making requet new project is given
+request : when request to dispacther servlet then create object and request over destroy object
+session : when any use login create bean when he logout destroy

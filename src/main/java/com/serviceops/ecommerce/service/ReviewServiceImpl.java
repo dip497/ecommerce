@@ -6,6 +6,7 @@ import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.entities.Product;
 import com.serviceops.ecommerce.entities.Review;
 import com.serviceops.ecommerce.entities.User;
+import com.serviceops.ecommerce.repository.CustomRepository;
 import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.repository.ReviewRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
@@ -20,7 +21,8 @@ import java.util.List;
 @Transactional
 public class ReviewServiceImpl implements ReviewService {
 
-
+    @Autowired
+    CustomRepository customRepository;
     @Autowired
     ReviewRepository reviewRepository;
     @Autowired
@@ -38,23 +40,25 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public boolean createReview(ReviewDto reviewDto) {
-        Product product = productRepository.findById(reviewDto.getProduct().getProductId()).get();
-        User user = userRepository.findById(reviewDto.getUser().getUserId()).get();
+        Product product = customRepository.findByColumn("productId",String.valueOf(reviewDto.getProduct().getProductId()),Product.class);
+        User user = customRepository.findByColumn("userEmail",reviewDto.getUser().getUserEmail(),User.class);
         Review review = new Review(reviewDto.getRatings(),product,user,reviewDto.getDescription());
-        reviewRepository.save(review);
+        customRepository.save(review);
         return true;
     }
 
     @Override
     public List<ReviewDto> productReview(Long productId){
-        List<Review> reivews = reviewRepository.findAllByProductProductId(productId);
+        List<Review> reivews =customRepository.findAllByColumnName(Review.class,"product","productId",productId.toString());
+              //  reviewRepository.findAllByProductProductId(productId);
 
         return reivews.stream().map(this::entityToDto).toList();
     }
 
     @Override
     public List<ReviewDto> userReview(UserDto userDto) {
-        List<Review> reviews = reviewRepository.findAllByUser(userRepository.findByUserEmail(userDto.getUserEmail()));
+        List<Review> reviews = customRepository.findAllByColumnName(Review.class,"user","userEmail",userDto.getUserEmail());
+              //  reviewRepository.findAllByUser(customRepository.findByColumn("userEmail",userDto.getUserEmail(),User.class));
         return reviews.stream().map(this::entityToDto).toList();
     }
 

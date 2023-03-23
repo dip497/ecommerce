@@ -9,6 +9,7 @@ import com.serviceops.ecommerce.repository.CategoryRepository;
 import com.serviceops.ecommerce.repository.ProductRepository;
 import com.serviceops.ecommerce.service.CategoryService;
 import com.serviceops.ecommerce.service.ProductService;
+import com.serviceops.ecommerce.utils.Helper;
 import org.hibernate.sql.results.graph.collection.internal.ListInitializerProducer;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -81,6 +82,15 @@ class ProductRepositoryTests {
 	void getProduct(){
 		ProductDto productById = productService.findProductById(3l);
 		System.out.println(productById.getProductId());
+
+	}
+
+	@Test
+	void testEntityToDto(){
+		Product product = productRepository.findById(5L).get();
+		ProductDto productDto = Helper.EntityToDto(product);
+		logger.info("Product ->{}",product);
+		logger.info("Product Dto ->{}",productDto);
 
 	}
 

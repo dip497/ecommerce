@@ -1,9 +1,12 @@
 package com.serviceops.ecommerce.dto.Product;
 
 
+import com.serviceops.ecommerce.dto.AuditDto;
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
 
-public class ProductDto {
+import java.io.Serializable;
+
+public class ProductDto extends AuditDto implements Serializable  {
     private long productId;
 
     private String productName;
@@ -29,6 +32,15 @@ public class ProductDto {
         this.productCategory = productCategory;
     }
     public ProductDto(Long productId,String productName, String productDesc, int productPrice, CategoryDto productCategory) {
+        this.productId=productId;
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.productPrice = productPrice;
+        this.productCategory = productCategory;
+    }
+
+    public ProductDto(Long productId,String productName, String productDesc, int productPrice, CategoryDto productCategory,String createdBy,String updatedBy) {
+        super(createdBy,updatedBy);
         this.productId=productId;
         this.productName = productName;
         this.productDesc = productDesc;
@@ -94,16 +106,9 @@ public class ProductDto {
                 ", productName='" + productName + '\'' +
                 ", productDesc='" + productDesc + '\'' +
                 ", productPrice=" + productPrice +
-                ", productSubCategory=" + productCategory +
-
+                ", productCategory=" + productCategory +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
                 '}';
     }
-
-
-
-
-
-
-
-
 }

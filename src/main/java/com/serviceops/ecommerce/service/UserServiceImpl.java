@@ -5,7 +5,9 @@ import com.serviceops.ecommerce.dto.user.UserDto;
 import com.serviceops.ecommerce.dto.user.UserPasswordDto;
 import com.serviceops.ecommerce.entities.User;
 import com.serviceops.ecommerce.exceptions.CustomException;
+import com.serviceops.ecommerce.repository.CustomRepository;
 import com.serviceops.ecommerce.repository.UserRepository;
+import com.serviceops.ecommerce.utils.EntityToDto;
 import com.serviceops.ecommerce.utils.Helper;
 import com.serviceops.ecommerce.utils.PasswordHelper;
 import org.slf4j.Logger;
@@ -27,20 +29,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CustomRepository customRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public boolean signUp(UserDto userDto) throws CustomException {
-        if (!Helper.isNull(userRepository.findByUserEmail(userDto.getUserEmail()))) {
+    /*    if (!Helper.isNull(customRepository.findByColumn("userEmail",userDto.getUserEmail(),User.class))) {
             throw new CustomException("User already exists");
-        }
+        }*/
 
         String encryptedPassword = PasswordHelper.hashPassword(userDto.getUserPassword());
 
         User user = new User(userDto.getUserFirstName(), userDto.getUserLastName(), userDto.getUserEmail(), encryptedPassword, userDto.getUserRole());
         user.setCreatedBy(userDto.getCreatedBy());
         try {
-            userRepository.save(user);
+            customRepository.save(user);
             logger.info("User saved successfully ->{}",userDto.getUserEmail() + " by " + userDto.getCreatedBy());
             return true;
         } catch (Exception e) {
@@ -54,7 +59,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDto getUser(String email) {
-        User user = userRepository.findByUserEmail(email);
+        User user = customRepository.findByColumn("userEmail",email,User.class);
         logger.info("User found->{}", email);
 
         if (Helper.isNull(user)) {
@@ -70,7 +75,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = customRepository.findAll(User.class);
         if(users.isEmpty()){
             logger.error("Empty List of Users");
         }
@@ -81,20 +86,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void deleteUser(Long id) {
 
 
-         userRepository.deleteById(id);
+         customRepository.deleteById(User.class,id,"userId");
          logger.info("User deleted ->{}", id);
     }
 
     @Override
     public void updateUser(UserDto userDto) {
-        Optional<User> optionalUser =  userRepository.findById(userDto.getUserId());
-        if(optionalUser.isPresent()) {
-            User user = optionalUser.get();
+       User optionalUser =  customRepository.findByColumn("userEmail", userDto.getUserEmail(), User.class);
+        if(optionalUser!=null) {
+            User user = optionalUser;
             user.setUserFirstName(userDto.getUserFirstName());
             user.setUserLastName(userDto.getUserLastName());
             user.setUserRole(userDto.getUserRole());
             user.setUpdatedBy(userDto.getUpdatedBy());
-            userRepository.save(user);
+            customRepository.save(user);
             logger.info("User updated ->{}", userDto.getUserId());
         }else{
             logger.error("user not found");
@@ -106,13 +111,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean updatePassword(UserPasswordDto userPasswordDto) {
         String newEncyptedPassowrd = PasswordHelper.hashPassword(userPasswordDto.getNewPassword());
-        User user = userRepository.findByUserEmail(userPasswordDto.getEmail());
+        User user = customRepository.findByColumn("userEmail", userPasswordDto.getEmail(), User.class);
 
 
 
         if(PasswordHelper.matchPassword(userPasswordDto.getOldPassword(),user.getUserPassword())){
             user.setUserPassword(newEncyptedPassowrd);
-            userRepository.save(user);
+            customRepository.save(user);
             logger.info("password updated of ->{} ", userPasswordDto.getEmail());
             return true;
         }
@@ -120,18 +125,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return false;
     }
 
-    private UserDto entityToDto(User user){
+    public UserDto entityToDto(User user){
         UserDto dto =  new UserDto(user.getUserId(), user.getUserFirstName(), user.getUserLastName(), user.getUserEmail(), user.getUserPassword(), user.getUserRole());
-        dto.setUpdatedBy(user.getUpdatedBy());
-        dto.setCreatedBy(user.getCreatedBy());
         logger.debug("entity to dto converted");
-        return dto;
+        EntityToDto<User, UserDto> entity = new EntityToDto<>(user, dto);
+        return entity.getDto();
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserEmail(username);
+        User user =
+        // userRepository.findByUserEmail(username);
+               customRepository.findByColumn("userEmail",username, User.class);
         if (user == null) {
             logger.error("User not founds ->{}",username);
             throw  new UsernameNotFoundException("No user found for the given email");

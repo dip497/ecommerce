@@ -1,0 +1,43 @@
+Spring bean scope
+    singleton - single object
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    or
+    @Scope(value="prototype")
+    prototype - every time object
+        - Bean initialisattion
+            1 ) singleton scoped beans initialize when the container started
+            2) prototype scoped beans initalize when we ask for it using getBean method and also when
+            it is used as dependency inside a singleton scoped bean
+
+        problem :-  when singleton has prototype dependence then that works
+        as singleton
+        for e.g school is singleton and student is prototye
+        then school student object will be same
+
+        so need to fool school class
+        use proxyMode
+        @Scope(value="prototye",proxyMode=ScopedProxyMode.TargetClass)
+
+         it is done using spring cg Library
+            Spring code Generation library
+         can change class
+
+         @autowired
+         Private Student student
+            now hold $$EnhancerBySpringCGLIB object
+
+
+    @Lookup
+        - injecting a prototype-scoped bean into a singleton bean
+        - injecting dependencies procedurally
+
+
+
+
+
+
+    request
+    session
+    application
+    websocket
+Global session scope was removed with 5.x release

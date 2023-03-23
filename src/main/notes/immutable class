@@ -1,0 +1,23 @@
+- make class final - cant extend and overide method
+- make variable final - cant change value
+- no setter method - cannot set variables
+- if have depened variable make it final and
+    when using get method provide copy of that object
+    while returning the new object using copy constructor concept
+    for e.q return new Address(address);
+    and in Address class
+        Address( Address address){
+            this(address.getName.....);
+        }
+    also best practice is that get a method static getInstance  method in address classs
+    that accpt address and return new object
+    so get method becomes
+        public getAddress(Address address){
+        return Address.getInstance(address);
+        }
+
+prons of immmutable class
+    - thread safe
+        one read , one write
+    - constants
+    - used as hashmap key

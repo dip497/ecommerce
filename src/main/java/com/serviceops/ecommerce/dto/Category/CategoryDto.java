@@ -1,16 +1,18 @@
 package com.serviceops.ecommerce.dto.Category;
 
 
+import com.serviceops.ecommerce.dto.AuditDto;
 import com.serviceops.ecommerce.dto.Product.ProductDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDto{
+public class CategoryDto extends AuditDto implements Serializable {
         private Long categoryId;
         private String categoryName;
         private CategoryDto parent;
@@ -34,7 +36,20 @@ public class CategoryDto{
             this.categoryName = categoryName;
             this.parent_categoryname=parent_categoryname;
         }
-        public Long getCategoryId() {
+
+    public CategoryDto(String createdBy, String updatedBy, Long categoryId, String categoryName, CategoryDto parent, List<CategoryDto> subCategoryList, List<ProductDto> productDtoList, String createdBy1, String updatedBy1, String parent_categoryname) {
+        super(createdBy, updatedBy);
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.parent = parent;
+        this.subCategoryList = subCategoryList;
+        this.productDtoList = productDtoList;
+        this.createdBy = createdBy1;
+        this.updatedBy = updatedBy1;
+        this.parent_categoryname = parent_categoryname;
+    }
+
+    public Long getCategoryId() {
             return categoryId;
         }
 

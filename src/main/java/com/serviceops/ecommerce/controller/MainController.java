@@ -47,6 +47,7 @@ public class MainController {
     @GetMapping("/user/home")
     public String viewUserHomePage(Model model){
         model.addAttribute("products", productService.getAllProducts());
+        System.out.println(productService.getAllProducts());
         return "user/user_home";
     }
     @GetMapping("/home")

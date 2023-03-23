@@ -77,7 +77,16 @@ public class Product extends Audit{
         this.reviews = reviews;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDesc='" + productDesc + '\'' +
+                ", productPrice=" + productPrice +
+                ", productCategory=" + productCategory +
+                ", productCreatedBy=" + super.getCreatedBy()+
+                ", productUpdatedBy=" + super.getUpdatedBy()+
+                '}';
+    }
 }

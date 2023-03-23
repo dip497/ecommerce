@@ -3,7 +3,7 @@ package com.serviceops.ecommerce.entities;
 import jakarta.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "user")
+@Entity(name = "users")
 public class User extends Audit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,6 +85,8 @@ public class User extends Audit{
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
+                ", userUpdateBy= " + super.getUpdatedBy() +
+                ", userCreateBy= " + super.getCreatedBy() +
                 '}';
     }
 

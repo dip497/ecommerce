@@ -1,0 +1,61 @@
+how many types of containers are there in spring framework
+    1) BeanFactory Container
+    2) Application Context Container
+what is spring Ioc container and how does it work
+    - spring ioc is core of spring framework
+    - ioc create the object configures and assembles their dependencies, manages their entire life cycle
+    - the ioc containers use dependency injection manage the components that make up the application
+    - ioc get the information about the objects from configuration file xml , java code or java annotations
+    and java pojo class the objects are called beans
+    - since the controlling of java objects and their lifecycle is not done by the developers
+    hence the name inversion of control
+
+BeanFactory and applicationContext interface hierachy
+    -  org.springframework.beans.factory.BeanFactory
+        and org.springframework.context.applicationContext interface acts as the ioc container
+    - the applicationcontext interface is built on top of the beanFactory interface
+difference between BeanFactory and ApplicationContext container
+standalone , support singleton and prototye and does not support annotations near xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SpringBootApplication
+    configuration
+
+    EnableAutoConfiguration
+        it enables spring boot to auto-configure the application context
+            it automatically creates and registers beans based on both the included files
+            in the classpath and the beans defined by user
+    ComponentScan
+        it detect and register Spring Managed Compenets
+            (component,repository,controller,service,configuration,restController)
+            with application arguments
+            @componentScan without argument tells spring to scan the current package
+            and all of it sub-packages
+    (spring is opinion framework)
+    Note :- Order is very important
+        spring always first perform user configuration via @componentScan and then auto
+        configuration via @EnableAutoConfiguration this order is crucial as spring need to know
+        about all the beans that you have provided to make sure that it prioritize your opinion while
+        autoconfiguration
+            example :- if you have already provided dataSource bean, spring will back and not configure DataSource
+                using autoconfiguration
+
+
+
