@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "users")
+@Table(indexes = {
+        @Index(name = "idx_u_users_user_Email", columnList = "userEmail", unique = true)
+})
 public class User extends Audit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -136,8 +136,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user =
-        // userRepository.findByUserEmail(username);
-               customRepository.findByColumn("userEmail",username, User.class);
+         userRepository.findByUserEmail(username);
+          //     customRepository.findByColumn("userEmail",username, User.class);
+        System.out.println(user);
         if (user == null) {
             logger.error("User not founds ->{}",username);
             throw  new UsernameNotFoundException("No user found for the given email");

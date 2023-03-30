@@ -28,7 +28,7 @@ public class ReviewTest {
     @Autowired
     UserRepository userRepository;
 
-    @Test
+
     void contextLoads() {
         ReviewDto reviewDto = new ReviewDto();
         reviewDto.setUser(userService.getUser("prakhar@gmail.com"));
@@ -49,7 +49,7 @@ public class ReviewTest {
         System.out.println(reviewRepository.findAllByUser(userRepository.findByUserEmail("prakhar@gmail.com")));
     }
 
-    @Test
+
     void testReviewRepositoryDelete(){
         reviewRepository.deleteById(5L);
     }

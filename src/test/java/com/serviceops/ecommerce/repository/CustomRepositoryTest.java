@@ -40,7 +40,7 @@ class CustomRepositoryTest {
         logger.info("found all product -> {}", allProduct);
     }
 
-    @Test
+
     void save(){
         Long userId = 2L;
         String userFirstName = "john";

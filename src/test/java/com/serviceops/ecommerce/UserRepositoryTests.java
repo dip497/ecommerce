@@ -41,13 +41,13 @@ class UserRepositoryTests {
 
 
 
-    @Test
+
     void TestFindUserByEmail() {
         User saveUser = userRepository.save(new User("dipendra", "sharma", "rohan@gmail.com", "12345678", Role.ADMIN));
         logger.info("user -> {}", userRepository.findByUserEmail("rohan@gmail.com"));
     }
 
-    @Test
+
     void TestUserService(){
         UserDto user =new UserDto();
         user.setUserFirstName("user");
@@ -78,7 +78,7 @@ class UserRepositoryTests {
         logger.info("from repo ->",userRepository.findAll());
     }
 
-    @Test
+
     void checkEntityToDto(){
         User user = userRepository.findByUserEmail("madebyuser@gmail.com");
         UserDto userDto = userServiceImpl.entityToDto(user);

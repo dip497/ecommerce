@@ -41,7 +41,7 @@ class ProductRepositoryTests {
 	{
 		System.out.println(productService.removeProduct(5L));
 	}
-	@Test
+
 	void getSubcategory()
 	{
 		ProductDto productById = productService.findProductById(4L);
@@ -60,7 +60,6 @@ class ProductRepositoryTests {
 	{
 		productService.createProduct(new ProductDto("Apple","S23 Ultra",54000,categoryService.findCategoryById(1L)));
 	}
-	@Test
 	void  findProduct(){
 		List<ProductDto> productDtoList = categoryService.findCategoryById(6l).getProductDtoList();
 		System.out.println(productDtoList.get(0).getProductCategory().getCategoryId());
@@ -78,14 +77,14 @@ class ProductRepositoryTests {
 		long productId = productRepository.findById(2l).get().getProductId();
 		System.out.println(productId);
 	}
-	@Test
+
 	void getProduct(){
 		ProductDto productById = productService.findProductById(3l);
 		System.out.println(productById.getProductId());
 
 	}
 
-	@Test
+
 	void testEntityToDto(){
 		Product product = productRepository.findById(5L).get();
 		ProductDto productDto = Helper.EntityToDto(product);

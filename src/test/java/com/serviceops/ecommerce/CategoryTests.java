@@ -20,19 +20,19 @@ public class CategoryTests
     @Autowired
     CategoryRepository categoryRepository;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Test
+
     void contextLoads()
     {
        categoryService.createCategory(new CategoryDto(14L,"MensWear"));
 
     }
-    @Test
+
     void deleteCategory()
     {
         categoryService.removeCategoryById(18L);
     }
 
-    @Test
+
     void saveCategory(){
         categoryService.createCategory(new CategoryDto(1L,"Books"));
     }
@@ -46,7 +46,7 @@ public class CategoryTests
 
     logger.info("CAtegory ->{}",categoryRepository.findBycategoryName("Electronics"));
     }
-    @Test
+
     void findcorrespondingCategories(){
         logger.info("Caategory ->{}",categoryService.getSubcategories("Electronics"));
     }

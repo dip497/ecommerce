@@ -19,7 +19,6 @@ import javax.swing.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-
 class UserServiceTests {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
