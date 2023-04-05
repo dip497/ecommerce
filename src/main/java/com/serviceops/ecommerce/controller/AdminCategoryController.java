@@ -1,10 +1,7 @@
 package com.serviceops.ecommerce.controller;
 
 import com.serviceops.ecommerce.dto.Category.CategoryDto;
-import com.serviceops.ecommerce.dto.Product.ProductDto;
 import com.serviceops.ecommerce.service.CategoryService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +15,11 @@ import java.util.List;
 @Controller
 public class AdminCategoryController {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private CategoryService CategoryService;
 
     @GetMapping("/admin/Category")
+
     public String getCategories(Model model)
     {
 
@@ -33,7 +30,6 @@ public class AdminCategoryController {
     @RequestMapping("/admin/Category/search")
     public ModelAndView getCategory( @RequestParam(value = "Category", required = true) String category){
         ModelAndView mav = new ModelAndView("adminCategories");
-        System.out.println(category);
         List<CategoryDto> subcategories = CategoryService.getSubcategories(category);
         mav.addObject("categories",subcategories);
         return mav;
@@ -41,9 +37,9 @@ public class AdminCategoryController {
     }
 
     @GetMapping("/admin/Category/delete/{id}")
-    public String deleteCategory(@PathVariable("id") Long Id)
+    public String deleteCategory(@PathVariable("id") Long id)
     {
-        CategoryService.removeCategoryById(Id);
+        CategoryService.removeCategoryById(id);
         return "redirect:/admin/Category";
 
     }
